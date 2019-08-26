@@ -32,18 +32,23 @@ module.exports = {
   production: {
     client: "pg",
     connection: {
-      database: process.env.DB_PROD_DATABASE,
-      host: process.env.DB_PROD_HOST,
-      user: process.env.DB_PROD_USER,
+      host: process.env.DB_PROD_HOST || "localhost",
+      database: process.env.DB_PROD_DATABASE || "rxid_prod",
+      user: process.env.DB_PROD_USER || "admin",
       password: process.env.DB_PROD_PASSWORD,
-      port: process.env.DB_PROD_PORT
+      port: process.env.DB_PROD_PORT || "5432"
     },
     pool: {
       min: 2,
       max: 10
     },
+    useNullAsDefault: true,
     migrations: {
-      tableName: "knex_migrations"
+      tableName: "knex_migrations",
+      directory: "./database/migrations"
+    },
+    seeds: {
+      directory: "./database/seeds"
     }
   }
 };
