@@ -33,7 +33,7 @@ module.exports = {
     client: "pg",
     connection: {
       host: process.env.DB_PROD_HOST || "localhost",
-      database: process.env.DB_PROD_DATABASE || "rxid_prod",
+      database: process.env.DB_PROD_DATABASE || "tripsplit_prod",
       user: process.env.DB_PROD_USER || "admin",
       password: process.env.DB_PROD_PASSWORD,
       port: process.env.DB_PROD_PORT || "5432"
