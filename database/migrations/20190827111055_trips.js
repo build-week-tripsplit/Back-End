@@ -1,26 +1,25 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("trips", trips => {
-    trips.increments();
+  return knex.schema.createTable("trips", tbl => {
+    tbl.increments();
 
-    trips.string("title").notNullable();
+    tbl.string("title").notNullable();
 
-    trips.string("description");
+    tbl.string("description");
 
-    trips.string("location");
+    tbl.string("location");
 
-    trips.integer("start_date");
+    tbl.integer("start_date");
 
-    trips.integer("end_date");
+    tbl.integer("end_date");
 
-    trips
+    tbl
       .integer("user_id")
       .notNullable()
-      .references("id")
-      .inTable("users")
+      .references("id").inTable("users")
       .onUpdate("cascade")
       .onDelete("cascade");
 
-    trips.boolean("complete").defaultTo(false);
+    tbl.boolean("complete").defaultTo(false);
   });
 };
 

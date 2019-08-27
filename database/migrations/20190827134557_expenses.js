@@ -13,16 +13,14 @@ exports.up = function(knex) {
     expenses
       .integer("user_id")
       .notNullable()
-      .references("id")
-      .inTable("users")
+      .references("id").inTable("users")
       .onUpdate("cascade")
       .onDelete("cascade");
 
     expenses
       .integer("trip_id")
       .notNullable()
-      .references("id")
-      .inTable("trips")
+      .references("id").inTable("trips")
       .onUpdate("cascade")
       .onDelete("cascade");
 
