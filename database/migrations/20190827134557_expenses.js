@@ -1,6 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable("expenses", expenses => {
-    expenses.increments();
+    expenses.serial("id").primary();
 
     expenses.string("title").notNullable();
 
@@ -13,14 +13,16 @@ exports.up = function(knex) {
     expenses
       .integer("user_id")
       .notNullable()
-      .references("id").inTable("users")
+      .references("id")
+      .inTable("users")
       .onUpdate("cascade")
       .onDelete("cascade");
 
     expenses
       .integer("trip_id")
       .notNullable()
-      .references("id").inTable("trips")
+      .references("id")
+      .inTable("trips")
       .onUpdate("cascade")
       .onDelete("cascade");
 
