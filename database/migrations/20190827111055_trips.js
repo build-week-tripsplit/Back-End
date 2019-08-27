@@ -17,13 +17,10 @@ exports.up = function(knex) {
       .notNullable()
       .references("id")
       .inTable("users")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+      .onUpdate("cascade")
+      .onDelete("cascade");
 
-    trips
-      .boolean("complete")
-      .defaultTo(false)
-      .notNullable();
+    trips.boolean("complete").defaultTo(false);
   });
 };
 

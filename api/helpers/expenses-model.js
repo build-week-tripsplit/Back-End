@@ -10,49 +10,49 @@ module.exports = {
 };
 
 function find() {
-  return db("trips").select("*");
+  return db("expenses").select("*");
 }
 
 function findBy(filter) {
-  return db("trips").where(filter);
+  return db("expenses").where(filter);
 }
 
-// async function add(trip) {
-//   const [id] = await db("trips").insert(trip);
+// async function add(expense) {
+//   const [id] = await db("expenses").insert(expense);
 
 //   return findById(id);
 // }
 
-async function add(trip) {
-  const [newTrip] = await db("trips")
-    .insert(trip)
+async function add(expense) {
+  const [newExpense] = await db("expenses")
+    .insert(expense)
     .returning("*");
 
-  return newTrip;
+  return newExpense;
 }
 
 function findById(id) {
-  return db("trips")
+  return db("expenses")
     .where({ id })
     .first();
 }
 
 function update(changes, id) {
-  return db("trips")
+  return db("expenses")
     .where({ id })
     .update(changes)
-    .then(trip => {
-      return trip;
+    .then(expense => {
+      return expense;
     });
 }
 
 function remove(id) {
-  return db("trips")
+  return db("expenses")
     .where({ id })
     .del()
-    .then(trip => {
-      if (trip) {
-        return trip;
+    .then(expense => {
+      if (expense) {
+        return expense;
       } else {
         return null;
       }
