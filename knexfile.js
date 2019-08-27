@@ -40,6 +40,9 @@ module.exports = {
     // },
     connection: process.env.DATABASE_URL,
     pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = 0", done);
+      },
       min: 2,
       max: 10
     },
