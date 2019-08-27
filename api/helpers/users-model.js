@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users").select("id", "username", "email", "firstName", "lastName");
+  return db("users").select("*");
 }
 
 function findBy(filter) {
@@ -16,12 +16,18 @@ function findBy(filter) {
 }
 
 async function add(user) {
-  const [newUser] = await db("users")
-    .insert(user)
-    .returning("*");
+  const [id] = await db("users").insert(user);
 
-  return newUser;
+  return findById(id);
 }
+
+// async function add(user) {
+//   const [newUser] = await db("users")
+//     .insert(user)
+//     .returning("*");
+
+//   return newUser;
+// }
 
 function findById(id) {
   return db("users")
