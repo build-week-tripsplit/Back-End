@@ -8,9 +8,9 @@ exports.up = function(knex) {
 
     trips.string("location");
 
-    trips.timestamp("start_date");
+    trips.integer("start_date");
 
-    trips.timestamp("end_date");
+    trips.integer("end_date");
 
     trips
       .integer("user_id")
