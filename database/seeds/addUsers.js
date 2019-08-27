@@ -1,10 +1,13 @@
 const faker = require("faker");
+const bcrypt = require("bcryptjs");
+
+const hash = bcrypt.hashSync("password", 10);
 
 const user1 = {
   id: 1,
   username: "username",
   email: "email@email.com",
-  password: "password",
+  password: hash,
   firstName: "Bob",
   lastName: "Smith"
 };
@@ -13,7 +16,7 @@ const createFakeUser = id => ({
   id,
   username: faker.internet.userName(),
   email: faker.internet.email(),
-  password: "password",
+  password: hash,
   firstName: faker.name.firstName(),
   lastName: faker.name.lastName()
 });
@@ -23,7 +26,7 @@ exports.seed = function(knex, Promise) {
     .truncate()
     .then(() => {
       let fakeUsers = [];
-      const desiredFakeUsers = 102;
+      const desiredFakeUsers = 101;
 
       fakeUsers.push(user1);
 
