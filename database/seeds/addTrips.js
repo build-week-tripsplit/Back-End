@@ -34,10 +34,12 @@ const tripData = [
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex("trips")
-    .truncate()
-    .then(() => {
-      // Inserts seed entries
-      return knex("trips").insert(tripData);
-    });
+  return (
+    knex("trips")
+      //.truncate()
+      .then(() => {
+        // Inserts seed entries
+        return knex("trips").insert(tripData);
+      })
+  );
 };
