@@ -15,16 +15,16 @@ exports.up = function(knex) {
       .notNullable()
       .references("id")
       .inTable("users")
-      .onDelete("cascade")
-      .onUpdate("cascade");
+      .onUpdate("cascade")
+      .onDelete("cascade");
 
     expenses
       .integer("trip_id")
       .notNullable()
       .references("id")
       .inTable("trips")
-      .onDelete("cascade")
-      .onUpdate("cascade");
+      .onUpdate("cascade")
+      .onDelete("cascade");
 
     expenses.boolean("complete").defaultTo(false);
   });
