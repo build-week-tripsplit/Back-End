@@ -6,7 +6,7 @@ module.exports = {
     connection: { filename: "./database/trip-split.db3" }, // change this if you want a different name for the database
     pool: {
       afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = 0", done);
+        conn.run("PRAGMA foreign_keys = 1", done);
       }
     },
     useNullAsDefault: true, // used to avoid warning on console
@@ -40,9 +40,6 @@ module.exports = {
     // },
     connection: process.env.DATABASE_URL,
     pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = 0", done);
-      },
       min: 2,
       max: 10
     },
