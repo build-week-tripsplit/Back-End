@@ -8,7 +8,7 @@ exports.up = function(knex) {
 
     expenses.float("amount");
 
-    expenses.timestamp("date");
+    expenses.integer("date");
 
     expenses
       .integer("user_id")
