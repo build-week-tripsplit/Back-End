@@ -22,8 +22,8 @@ const expenseData = [
   {
     id: 3,
     title: "Drinks in the Hotel Lounge",
-    category: "Loading everyone up for some family fun with Disney!",
-    amount: "Orlando, Florida",
+    category: "Food/Beverage",
+    amount: 60.0,
     date: 1561248000,
     user_id: 1,
     trip_id: 1,
