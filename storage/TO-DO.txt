@@ -1,0 +1,8 @@
+1) Multiple Users per User and Multiple Trips per User
+    -many to many relationship
+
+2) Multiple Expenses per One Trip 
+    -one to many relationship
+
+3) Mutiple Users per Expense and Multiple Expenses per User
+    -many to many relationship
