@@ -1,6 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable("users", tbl => {
-    tbl.serial("id").primary();
+    tbl.increments();
 
     tbl
       .string("username", 255)

@@ -1,6 +1,5 @@
 const tripData = [
   {
-    id: 1,
     title: "Paris Business Trip",
     description:
       "Going to Paris for business meetings and week-long conferences. Representing my local branch of the company.",
@@ -11,7 +10,6 @@ const tripData = [
     complete: true
   },
   {
-    id: 2,
     title: "Bali Vaca!",
     description: "Relaxing with bae and checking out from responsibilities.",
     location: "Bali, Indonesia",
@@ -21,7 +19,6 @@ const tripData = [
     complete: false
   },
   {
-    id: 3,
     title: "Family Adventure to DisneyLand",
     description: "Loading everyone up for some family fun with Disney!",
     location: "Orlando, Florida",
