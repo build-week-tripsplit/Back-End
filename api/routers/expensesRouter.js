@@ -19,6 +19,16 @@ router.get("/:id", (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.get("/user/:id", (req, res) => {
+  const { user_id } = req.params;
+
+  Expenses.findUserExpenses(user_id)
+    .then(expenses => {
+      res.json(expenses);
+    })
+    .catch(err => res.send(err));
+});
+
 router.post("/", (req, res) => {
   const expense = req.body;
 

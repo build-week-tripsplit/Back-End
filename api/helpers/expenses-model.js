@@ -5,6 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
+  findUserExpenses,
   remove,
   update
 };
@@ -15,6 +16,16 @@ function find() {
 
 function findBy(filter) {
   return db("expenses").where(filter);
+}
+
+//ENDPOINT /api/expenses/user/:id
+
+async function findUserExpenses(user_id) {
+  const [expenses] = await db("expenses")
+    .where({ user_id })
+    .returning("*");
+
+  return expenses;
 }
 
 // async function add(expense) {
