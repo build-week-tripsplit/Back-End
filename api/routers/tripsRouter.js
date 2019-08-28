@@ -19,6 +19,14 @@ router.get("/:id", (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.get("/user/:id", (req, res) => {
+  Expenses.findUserTrips(req.params.user_id)
+    .then(trips => {
+      res.json(trips);
+    })
+    .catch(err => res.send(err));
+});
+
 router.post("/", (req, res) => {
   const trip = req.body;
 

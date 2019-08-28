@@ -5,6 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
+  findUserTrips,
   remove,
   update
 };
@@ -15,6 +16,14 @@ function find() {
 
 function findBy(filter) {
   return db("trips").where(filter);
+}
+
+async function findUserTrips(user_id) {
+  const trips = await db("trips")
+    .where({ user_id })
+    .returning("*");
+
+  return trips;
 }
 
 // async function add(trip) {
