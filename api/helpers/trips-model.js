@@ -24,7 +24,7 @@ function findBy(filter) {
 // }
 
 async function add(trip) {
-  const [newTrip] = await db("trips")
+  const newTrip = await db("trips")
     .insert(trip)
     .returning("*");
 
