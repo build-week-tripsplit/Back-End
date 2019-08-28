@@ -25,7 +25,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 Payload: an object with the following, first_name and last_name are optional.
 
-```
+```javascript
 {
   "username": "newUsername",
   "password": "newPassword",
