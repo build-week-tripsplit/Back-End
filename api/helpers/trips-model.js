@@ -18,10 +18,14 @@ function findBy(filter) {
   return db("trips").where(filter);
 }
 
-async function findUserTrips(user_id) {
-  const trips = await db("trips").where({ user_id });
+function findById(id) {
+  return db("trips")
+    .where({ id })
+    .first();
+}
 
-  return trips;
+function findUserTrips(user_id) {
+  return db("trips").where({ user_id });
 }
 
 // async function add(trip) {
@@ -36,12 +40,6 @@ async function add(trip) {
     .returning("*");
 
   return newTrip;
-}
-
-function findById(id) {
-  return db("trips")
-    .where({ id })
-    .first();
 }
 
 async function update(changes, id) {

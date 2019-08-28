@@ -18,12 +18,14 @@ function findBy(filter) {
   return db("expenses").where(filter);
 }
 
-//ENDPOINT /api/expenses/user/:id
+function findById(id) {
+  return db("expenses")
+    .where({ id })
+    .first();
+}
 
-async function findUserExpenses(user_id) {
-  const expenses = await db("expenses").where({ user_id });
-
-  return expenses;
+function findUserExpenses(user_id) {
+  return db("expenses").where({ user_id });
 }
 
 // async function add(expense) {
@@ -38,12 +40,6 @@ async function add(expense) {
     .returning("*");
 
   return newExpense;
-}
-
-function findById(id) {
-  return db("expenses")
-    .where({ id })
-    .first();
 }
 
 async function update(changes, id) {
