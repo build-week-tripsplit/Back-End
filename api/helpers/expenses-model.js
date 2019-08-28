@@ -37,13 +37,12 @@ function findById(id) {
     .first();
 }
 
-function update(changes, id) {
-  return db("expenses")
+async function update(changes, id) {
+  const [updatedExpense] = await db("expenses")
     .where({ id })
     .update(changes)
-    .then(expense => {
-      return expense;
-    });
+    .returning("*");
+  return updatedExpense;
 }
 
 function remove(id) {

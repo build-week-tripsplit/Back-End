@@ -24,7 +24,7 @@ function findBy(filter) {
 // }
 
 async function add(trip) {
-  const newTrip = await db("trips")
+  const [newTrip] = await db("trips")
     .insert(trip)
     .returning("*");
 
@@ -37,13 +37,13 @@ function findById(id) {
     .first();
 }
 
-function update(changes, id) {
-  return db("trips")
+async function update(changes, id) {
+  const [updatedTrip] = await db("trips")
     .where({ id })
     .update(changes)
-    .then(trip => {
-      return trip;
-    });
+    .returning("*");
+
+  return updatedTrip;
 }
 
 function remove(id) {
