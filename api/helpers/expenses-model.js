@@ -21,9 +21,7 @@ function findBy(filter) {
 //ENDPOINT /api/expenses/user/:id
 
 async function findUserExpenses(user_id) {
-  const expenses = await db("expenses")
-    .where({ user_id })
-    .returning("*");
+  const expenses = await db("expenses").where({ user_id });
 
   return expenses;
 }

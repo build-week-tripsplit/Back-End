@@ -19,9 +19,7 @@ function findBy(filter) {
 }
 
 async function findUserTrips(user_id) {
-  const trips = await db("trips")
-    .where({ user_id })
-    .returning("*");
+  const trips = await db("trips").where({ user_id });
 
   return trips;
 }
