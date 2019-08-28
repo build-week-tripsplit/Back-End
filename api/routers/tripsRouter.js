@@ -20,7 +20,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/user/:id", (req, res) => {
-  Trips.findUserTrips(req.params.user_id)
+  Trips.findUserTrips(req.params.id)
     .then(trips => {
       res.json(trips);
     })
