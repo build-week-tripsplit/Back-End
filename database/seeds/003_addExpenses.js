@@ -1,6 +1,5 @@
 const expenseData = [
   {
-    id: 1,
     title: "Hotel - Entire Trip",
     category: "Lodging",
     amount: 2500.0,
@@ -10,7 +9,6 @@ const expenseData = [
     complete: true
   },
   {
-    id: 2,
     title: "Food - Entire Trip",
     category: "Food/Beverage",
     amount: 2300.0,
@@ -20,7 +18,6 @@ const expenseData = [
     complete: true
   },
   {
-    id: 3,
     title: "Drinks in the Hotel Lounge",
     category: "Food/Beverage",
     amount: 60.0,
@@ -30,7 +27,6 @@ const expenseData = [
     complete: true
   },
   {
-    id: 4,
     title: "Hotel Expense",
     category: "Lodging",
     amount: 300.0,
@@ -40,7 +36,6 @@ const expenseData = [
     complete: false
   },
   {
-    id: 5,
     title: "Flight - Roundtrip for Two",
     category: "Transportation",
     amount: 2600.0,

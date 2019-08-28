@@ -5,7 +5,6 @@ const hash = bcrypt.hashSync("password", 10);
 
 const usersData = [
   {
-    id: 1,
     username: "username",
     email: "email@email.com",
     password: hash,
@@ -13,7 +12,6 @@ const usersData = [
     lastName: "Smith"
   },
   {
-    id: 2,
     username: "username2",
     email: "email2@email.com",
     password: hash,

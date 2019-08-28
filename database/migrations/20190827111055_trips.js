@@ -1,6 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable("trips", tbl => {
-    tbl.serial("id").primary();
+    tbl.increments();
 
     tbl.string("title").notNullable();
 

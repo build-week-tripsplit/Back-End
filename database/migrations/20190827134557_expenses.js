@@ -1,6 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable("expenses", expenses => {
-    expenses.serial("id").primary();
+    expenses.increments();
 
     expenses.string("title").notNullable();
 
