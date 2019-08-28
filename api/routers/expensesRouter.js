@@ -20,9 +20,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/user/:id", (req, res) => {
-  const { user_id } = req.params;
-
-  Expenses.findUserExpenses(user_id)
+  Expenses.findUserExpenses(req.params.user_id)
     .then(expenses => {
       res.json(expenses);
     })
