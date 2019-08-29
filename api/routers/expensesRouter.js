@@ -25,7 +25,7 @@ router.get("/user/:id", (req, res) => {
     .then(expenses => {
       res.json(expenses);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
 //OG POST for expenses

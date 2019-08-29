@@ -14,7 +14,9 @@ module.exports = {
 // }
 
 function findUserExpenses(user_id) {
-  return db("expense_users").where({ user_id });
+  return db("expense_users")
+    .where({ user_id })
+    .returning("*");
 }
 
 async function add(expense_id, user_id, amount, title, category, date) {

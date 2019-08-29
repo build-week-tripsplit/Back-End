@@ -25,7 +25,7 @@ router.get("/user/:id", (req, res) => {
     .then(trips => {
       res.json(trips);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
 router.post("/", (req, res) => {
