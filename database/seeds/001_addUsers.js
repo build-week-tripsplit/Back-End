@@ -29,7 +29,7 @@ const usersData = [
 
 exports.seed = function(knex, Promise) {
   return knex("users")
-    .truncate()
+    //.truncate()
     .then(() => {
       return knex("users").insert(usersData);
     });
