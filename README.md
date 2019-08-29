@@ -90,6 +90,7 @@ Returns: an object with a message and authentication token. Save this token to l
 | [GET Expenses by User ID](#get-expenses-by-user-id) | `/api/expenses/user/:id` |
 | [POST Trip](#post-trip)                             | `/api/trips`             |
 | [POST Expense](#post-expense)                       | `/api/expenses`          |
+| [POST Trip User](#post-trip-user)                   | `/api/trips/user`        |
 | [PUT Trip by ID](#put-trip-by-id)                   | `/api/trips/:id`         |
 | [PUT Expense by ID](#put-expense-by-id)             | `/api/expenses/:id`      |
 | [DELETE Trip by ID](#delete-trip-by-id)             | `/api/trips/:id`         |
@@ -431,7 +432,7 @@ Returns: the complete expense object (`id` is automatically generated, `complete
 
 ---
 
-### [POST] Trip Users
+### [POST] Trip User
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/trips/user
 
