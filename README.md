@@ -96,7 +96,7 @@ Returns: an object with a message and authentication token. Save this token to l
 | [DELETE Trip by ID](#delete-trip-by-id)             | `/api/trips/:id`         |
 | [DELETE Expense by ID](#delete-expense-by-id)       | `/api/expenses/:id`      |
 
-### [GET] Users
+### [GET] All Users
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/users
 
@@ -144,7 +144,7 @@ Returns: the user object.
 
 ---
 
-### [GET] Trips
+### [GET] All Trips
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/trips
 
