@@ -28,35 +28,11 @@ const usersData = [
 ];
 
 exports.seed = function(knex, Promise) {
-  return knex("users")
-    //.truncate()
-    .then(() => {
-      return knex("users").insert(usersData);
-    });
+  return (
+    knex("users")
+      //.truncate()
+      .then(() => {
+        return knex("users").insert(usersData);
+      })
+  );
 };
-
-// const createFakeUser = id => ({
-//   id,
-//   username: faker.internet.userName(),
-//   email: faker.internet.email(),
-//   password: hash,
-//   firstName: faker.name.firstName(),
-//   lastName: faker.name.lastName()
-// });
-
-// exports.seed = function(knex, Promise) {
-//   return knex("users")
-//     .truncate()
-//     .then(() => {
-//       let fakeUsers = [];
-//       const desiredFakeUsers = 101;
-
-//       fakeUsers.push(user1);
-
-//       for (let i = 2; i < desiredFakeUsers; i++) {
-//         fakeUsers.push(createFakeUser(i));
-//       }
-
-//       return knex("users").insert(fakeUsers);
-//     });
-// };
