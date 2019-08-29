@@ -21,13 +21,11 @@ const usersData = [
 ];
 
 exports.seed = function(knex, Promise) {
-  return (
-    knex("users")
-      // .truncate()
-      .then(() => {
-        return knex("users").insert(usersData);
-      })
-  );
+  return knex("users")
+    .truncate()
+    .then(() => {
+      return knex("users").insert(usersData);
+    });
 };
 
 // const createFakeUser = id => ({

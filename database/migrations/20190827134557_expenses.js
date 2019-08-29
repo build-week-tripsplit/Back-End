@@ -11,14 +11,6 @@ exports.up = function(knex) {
     expenses.integer("date");
 
     expenses
-      .integer("user_id")
-      .notNullable()
-      .references("id")
-      .inTable("users")
-      .onUpdate("cascade")
-      .onDelete("cascade");
-
-    expenses
       .integer("trip_id")
       .notNullable()
       .references("id")

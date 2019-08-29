@@ -1,7 +1,8 @@
 const router = require("express").Router();
 
 const Expenses = require("../helpers/expenses-model");
-const restricted = require("../../customMiddleware/restricted-middleware");
+const ExpenseUsers = require("../helpers/expense_users-model");
+// const restricted = require("../../customMiddleware/restricted-middleware");
 
 router.get("/", (req, res) => {
   Expenses.find()
@@ -27,18 +28,51 @@ router.get("/user/:id", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.post("/", (req, res) => {
-  const expense = req.body;
+// router.post("/", (req, res) => {
+//   const expense = req.body;
 
-  if (!expense.title || !expense.user_id || !expense.trip_id) {
+//   if (!expense.title || !expense.user_id || !expense.trip_id) {
+//     res.status(500).json({
+//       message: "Must include expense title, user_id, and trip_id"
+//     });
+//   }
+
+//   Expenses.add(expense)
+//     .then(saved => {
+//       res.json(saved);
+//     })
+//     .catch(err => res.send(err));
+// });
+
+//NEW ONE
+
+router.post("/", async (req, res) => {
+  const expense = req.body.expense;
+  const amount = expense.amount;
+  const usersArray = req.body.users;
+
+  const fixedDecimalAmount = Math.round(amount * 100) / 100;
+  const perUserAmount = fixedDecimalAmount / usersArray.length;
+
+  if (!expense.title || !usersArray || !expense.trip_id) {
     res.status(500).json({
-      message: "Must include expense title, user_id, and trip_id"
+      message: "Must include expense title, users array, and trip_id"
     });
   }
 
   Expenses.add(expense)
     .then(saved => {
-      res.json(saved);
+      const expense_id = saved.id;
+
+      console.log("added expense");
+      usersArray.forEach(user => {
+        ExpenseUsers.add(expense_id, user, perUserAmount)
+          .then(saved => {
+            console.log(saved);
+          })
+          .catch(err => res.send(err));
+      });
+      res.send(saved);
     })
     .catch(err => res.send(err));
 });
