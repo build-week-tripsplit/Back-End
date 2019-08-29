@@ -19,4 +19,12 @@ router.get("/:id", (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.get("/:username", (req, res) => {
+  Users.findByUsername(req.params.username)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(err => res.send(err));
+});
+
 module.exports = router;

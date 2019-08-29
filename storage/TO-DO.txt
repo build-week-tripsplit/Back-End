@@ -1,11 +1,5 @@
-1) Multiple Users per User and Multiple Trips per User
-    -many to many relationship
+fix add trip endpoint, automatically populate trip_users table with users array
 
-2) Multiple Expenses per One Trip 
-    -one to many relationship
+make endpoint to find users by username
 
-3) Mutiple Users per Expense and Multiple Expenses per User
-    -many to many relationship
-
-    adds columns when an expense is added 
-    
+get user expenses endpoint is broken 
