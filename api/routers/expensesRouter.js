@@ -81,7 +81,7 @@ router.post("/", async (req, res) => {
     .then(saved => {
       console.log(" got here");
       //change to saved.id for postgres-------------------------------->
-      const expense_id = saved;
+      const expense_id = saved.id;
 
       console.log("added expense");
       usersArray.forEach(user => {
