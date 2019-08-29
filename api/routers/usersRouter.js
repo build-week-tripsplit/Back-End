@@ -16,15 +16,17 @@ router.get("/:id", (req, res) => {
     .then(user => {
       res.json(user);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
-router.get("/:username", (req, res) => {
+router.get("/getby/:username", (req, res) => {
+  console.log(req.params.username);
   Users.findByUsername(req.params.username)
     .then(user => {
+      console.log(user);
       res.json(user);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
 module.exports = router;
