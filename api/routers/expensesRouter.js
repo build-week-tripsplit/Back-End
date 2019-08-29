@@ -20,6 +20,14 @@ router.get("/:id", (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.get("/all", (req, res) => {
+  Expenses.findUserExpenses()
+    .then(expenses => {
+      res.status(200).json(expenses);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 router.get("/user/:id", (req, res) => {
   Expenses.findUserExpenses(req.params.id)
     .then(expenses => {

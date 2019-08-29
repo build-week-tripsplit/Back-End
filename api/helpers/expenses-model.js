@@ -7,6 +7,7 @@ module.exports = {
   findById,
   findUserExpenses,
   remove,
+  findExpenseUsers,
   update
 };
 
@@ -28,7 +29,11 @@ function findById(id) {
 //   return db("expenses").where({ user_id });
 // }
 
+function findExpenseUsers() {
+  return db("expense_users").select("*");
+}
 
+// Chance change
 function findUserExpenses(user_id) {
   return db("expense_users").where({ user_id });
 }
