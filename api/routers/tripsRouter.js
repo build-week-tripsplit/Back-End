@@ -23,7 +23,9 @@ router.get("/:id", (req, res) => {
 router.get("/user/:id", (req, res) => {
   TripUsers.findUserTrips(req.params.id)
     .then(trips => {
-      res.json(trips);
+      // res.json(trips);
+      // chance-----
+      res.status(202).json(trips);
     })
     .catch(err => res.status(500).json(err));
 });
