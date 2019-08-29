@@ -17,6 +17,13 @@ const usersData = [
     password: hash,
     firstName: "Lazy",
     lastName: "Larry"
+  },
+  {
+    username: "username3",
+    email: "email3@email.com",
+    password: hash,
+    firstName: "John",
+    lastName: "Doe"
   }
 ];
 
