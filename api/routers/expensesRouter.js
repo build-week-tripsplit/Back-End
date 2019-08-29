@@ -21,12 +21,14 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/user/:id", (req, res) => {
-  Expenses.findUserExpenses(req.params.id)
+  ExpenseUsers.findUserExpenses(req.params.id)
     .then(expenses => {
       res.json(expenses);
     })
     .catch(err => res.send(err));
 });
+
+//OG POST for expenses
 
 // router.post("/", (req, res) => {
 //   const expense = req.body;
@@ -44,15 +46,21 @@ router.get("/user/:id", (req, res) => {
 //     .catch(err => res.send(err));
 // });
 
-//NEW ONE
+//NEW POST to handle new expense_users
 
 router.post("/", async (req, res) => {
   const expense = req.body.expense;
   const amount = expense.amount;
+  const title = expense.title;
+  const category = expense.category;
+  const date = expense.date;
   const usersArray = req.body.users;
 
-  const fixedDecimalAmount = Math.round(amount * 100) / 100;
-  const perUserAmount = fixedDecimalAmount / usersArray.length;
+  console.log("REQUEST: ", req.body);
+  console.log("EXPENSE: ", expense);
+
+  const perUserAmount = amount / usersArray.length;
+  const fixedDecimalAmount = Math.round(perUserAmount * 100) / 100;
 
   if (!expense.title || !usersArray || !expense.trip_id) {
     res.status(500).json({
@@ -62,19 +70,33 @@ router.post("/", async (req, res) => {
 
   Expenses.add(expense)
     .then(saved => {
-      const expense_id = saved.id;
+      console.log(" got here");
+      //change to saved.id for postgres-------------------------------->
+      const expense_id = saved;
 
       console.log("added expense");
       usersArray.forEach(user => {
-        ExpenseUsers.add(expense_id, user, perUserAmount)
+        ExpenseUsers.add(
+          expense_id,
+          user,
+          fixedDecimalAmount,
+          title,
+          category,
+          date
+        )
           .then(saved => {
             console.log(saved);
           })
-          .catch(err => res.send(err));
+          .catch(err =>
+            res.status(500).json({
+              err,
+              message: "error adding individual expenses to users"
+            })
+          );
       });
-      res.send(saved);
+      res.status(201).json(saved);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json({ err, message: "error out here" }));
 });
 
 router.put("/:id", async (req, res) => {

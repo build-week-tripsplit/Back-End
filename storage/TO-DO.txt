@@ -6,3 +6,6 @@
 
 3) Mutiple Users per Expense and Multiple Expenses per User
     -many to many relationship
+
+    adds columns when an expense is added 
+    

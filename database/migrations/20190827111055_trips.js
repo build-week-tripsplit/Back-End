@@ -12,14 +12,6 @@ exports.up = function(knex) {
 
     tbl.integer("end_date");
 
-    tbl
-      .integer("user_id")
-      .notNullable()
-      .references("id")
-      .inTable("users")
-      .onUpdate("cascade")
-      .onDelete("cascade");
-
     tbl.boolean("complete").defaultTo(false);
   });
 };

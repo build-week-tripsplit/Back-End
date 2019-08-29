@@ -30,8 +30,8 @@ Payload: an object with the following, first_name and last_name are optional.
   "username": "newUsername",
   "password": "newPassword",
   "email" : "johndoe@gmail.com",
-  "first_name": "John",
-  "last_name": "Doe"
+  "firstName": "John",
+  "lastName": "Doe"
 }
 ```
 
@@ -43,8 +43,8 @@ Returns: an object with user id, username, password, and email. If fist_name and
   "username": "newUsername",
   "password": "hashedPassword",
   "email": "johndoe@gmail.com",
-  "first_name": "John",
-  "last_name": "Doe"
+  "firstName": "John",
+  "lastName": "Doe"
 }
 ```
 
@@ -78,20 +78,22 @@ Returns: an object with a message and authentication token. Save this token to l
 
 #### All EndPoints below require a token!
 
-| Links                                         | Endpoints           |
-| --------------------------------------------- | ------------------- |
-| [GET All Users](#get-users)                   | `/api/users`        |
-| [GET User by ID](#get-user-by-id)             | `/api/users/:id`    |
-| [GET All Trips](#get-trips)                   | `/api/trips`        |
-| [GET Trip by ID](#get-trip-by-id)             | `/api/trips/:id`    |
-| [GET All Expenses](#get-expenses)             | `/api/expenses`     |
-| [GET Expense by ID](#get-expenses-by-id)      | `/api/expenses/:id` |
-| [POST Trip](#post-trip)                       | `/api/trips`        |
-| [POST Expense](#post-expense)                 | `/api/expenses`     |
-| [PUT Trip by ID](#put-trip-by-id)             | `/api/trips/:id`    |
-| [PUT Expense by ID](#put-expense-by-id)       | `/api/expenses/:id` |
-| [DELETE Trip by ID](#delete-trip-by-id)       | `/api/trips/:id`    |
-| [DELETE Expense by ID](#delete-expense-by-id) | `/api/expenses/:id` |
+| Links                                               | Endpoints                |
+| --------------------------------------------------- | ------------------------ |
+| [GET All Users](#get-users)                         | `/api/users`             |
+| [GET User by ID](#get-user-by-id)                   | `/api/users/:id`         |
+| [GET All Trips](#get-trips)                         | `/api/trips`             |
+| [GET Trip by ID](#get-trip-by-id)                   | `/api/trips/:id`         |
+| [GET All Expenses](#get-expenses)                   | `/api/expenses`          |
+| [GET Expense by ID](#get-expenses-by-id)            | `/api/expenses/:id`      |
+| [GET Trips by User ID](#get-trips-by-user-id)       | `/api/trips/user/:id`    |
+| [GET Expenses by User ID](#get-expenses-by-user-id) | `/api/expenses/user/:id` |
+| [POST Trip](#post-trip)                             | `/api/trips`             |
+| [POST Expense](#post-expense)                       | `/api/expenses`          |
+| [PUT Trip by ID](#put-trip-by-id)                   | `/api/trips/:id`         |
+| [PUT Expense by ID](#put-expense-by-id)             | `/api/expenses/:id`      |
+| [DELETE Trip by ID](#delete-trip-by-id)             | `/api/trips/:id`         |
+| [DELETE Expense by ID](#delete-expense-by-id)       | `/api/expenses/:id`      |
 
 ### [GET] Users
 
@@ -106,14 +108,16 @@ Returns: an array of registered user objects.
     username: "user1",
     password: "hashed password",
     email: "user1@gmail.com",
-    first_name: "Bob",
-    last_name: "Smith"
+    firstName: "Bob",
+    lastName: "Smith"
   },
   {
     id: 2,
     username: "user2",
     password: "hashed password",
-    email: "user2@gmail.com"
+    email: "user2@gmail.com",
+    firstName: null,
+    lastName: null
   }
 ];
 ```
@@ -132,8 +136,8 @@ Returns: the user object.
       "username": "user1",
       "password": "hashed password",
       "email": "user1@gmail.com",
-      "first_name": "Bob",
-      "last_name": "Smith"
+      "firstName": "Bob",
+      "lastName": "Smith"
     }
 ```
 
@@ -145,8 +149,6 @@ Returns: the user object.
 
 Returns: all trips in **an array of objects** with as follows:
 
-> `user_id` references which user the trip _belongs_ to.
-
 ```javascript
 [
   {
@@ -157,7 +159,6 @@ Returns: all trips in **an array of objects** with as follows:
     location: "Paris, France",
     start_date: 1560643200,
     end_date: 1561248000,
-    user_id: 1,
     complete: true
   },
   {
@@ -167,7 +168,6 @@ Returns: all trips in **an array of objects** with as follows:
     location: "Bali, Indonesia",
     start_date: 1569542400,
     end_date: 1569974400,
-    user_id: 1,
     complete: false
   },
   {
@@ -177,7 +177,6 @@ Returns: all trips in **an array of objects** with as follows:
     location: "Orlando, Florida",
     start_date: 1570665600,
     end_date: 1570924800,
-    user_id: 1,
     complete: false
   }
 ];
@@ -199,7 +198,6 @@ Returns: the trip object.
   "location": "Bali, Indonesia",
   "start_date": 1569542400,
   "end_date": 1569974400,
-  "user_id": 1,
   "complete": false
 }
 ```
@@ -212,7 +210,6 @@ Returns: the trip object.
 
 Returns: all expenses in **an array of objects** as follows:
 
-> `user_id` references which user the expense _belongs_ to.
 > `trip_id` references which trip the expense _belongs_ to.
 
 ```javascript
@@ -223,7 +220,6 @@ Returns: all expenses in **an array of objects** as follows:
     category: "Lodging",
     amount: 2500,
     date: 1561248000,
-    user_id: 1,
     trip_id: 1,
     complete: true
   },
@@ -233,7 +229,6 @@ Returns: all expenses in **an array of objects** as follows:
     category: "Food/Beverage",
     amount: 2300,
     date: 1561248000,
-    user_id: 1,
     trip_id: 1,
     complete: true
   },
@@ -243,7 +238,6 @@ Returns: all expenses in **an array of objects** as follows:
     category: "Food/Beverage",
     amount: 60,
     date: 1561248000,
-    user_id: 1,
     trip_id: 1,
     complete: true
   },
@@ -253,7 +247,6 @@ Returns: all expenses in **an array of objects** as follows:
     category: "Lodging",
     amount: 300,
     date: 1569974400,
-    user_id: 1,
     trip_id: 2,
     complete: false
   },
@@ -263,7 +256,6 @@ Returns: all expenses in **an array of objects** as follows:
     category: "Transportation",
     amount: 2600,
     date: 1569974400,
-    user_id: 1,
     trip_id: 2,
     complete: false
   }
@@ -278,8 +270,6 @@ Returns: all expenses in **an array of objects** as follows:
 
 Returns: the expense object as follows:
 
-> `user_id` references which user the expense _belongs_ to.
-
 ```javascript
 {
   "id": 1,
@@ -287,10 +277,78 @@ Returns: the expense object as follows:
   "category": "Lodging",
   "amount": 2500,
   "date": 1561248000,
-  "user_id": 1,
   "trip_id": 1,
   "complete": true
 }
+```
+
+---
+
+### [GET] Trips By User ID
+
+### URL: https://tripsplit-backend.herokuapp.com/api/trips/user/:id
+
+Returns: an **array of objects** displaying a list of each trip for a specified user.
+
+```javascript
+[
+  {
+    id: 1,
+    trip_id: 1,
+    user_id: 1,
+    title: "Paris Bussiness Trip",
+    description:
+      "Going to Paris for business meetings and week-long conferences. Representing my local branch of the company.",
+    location: "Paris, France",
+    start_date: 1560643200,
+    end_date: 1561248000,
+    complete: true
+  },
+  {
+    id: 2,
+    trip_id: 5,
+    user_id: 1,
+    title: "Summer Vaca!",
+    description: null,
+    location: "Carribean Cruise",
+    start_date: 1560643200,
+    end_date: 1561248000,
+    complete: false
+  }
+];
+```
+
+---
+
+### [GET] Expenses By User ID
+
+### URL: https://tripsplit-backend.herokuapp.com/api/expenses/user/:id
+
+Returns: an **array of objects** displaying a list of each expense for a specified user.
+
+```javascript
+[
+  {
+    id: 2,
+    expense_id: 6,
+    user_id: 2,
+    amount: 20,
+    title: "Hostel for the Week",
+    category: "Lodging",
+    date: 1569542400,
+    complete: false
+  },
+  {
+    id: 5,
+    expense_id: 7,
+    user_id: 2,
+    amount: 25,
+    title: "Beach Party!",
+    category: "Entertainment",
+    date: 1569542400,
+    complete: false
+  }
+];
 ```
 
 ---
@@ -303,16 +361,13 @@ Payload: an object with the following:
 
 **title & user_id are REQUIRED**
 
-> the `user_id` is to let the database know who the trip _belongs_ to.
-
 ```javascript
 {
 	"title": "New Trip",
 	"description": "A trip to a place!",
 	"location": "Over there",
 	"start_date": 1569542454,
-  "end_date": 1569974454,
-	"user_id": 3
+  "end_date": 1569974454
 }
 ```
 
@@ -326,7 +381,6 @@ Returns: the complete trip object (`id` is automatically generated, `complete` h
   "location": "Over there",
   "start_date": 1569542454,
   "end_date": 1569974454,
-  "user_id": 3,
   "complete": false
 }
 ```
@@ -339,18 +393,25 @@ Returns: the complete trip object (`id` is automatically generated, `complete` h
 
 Payload: an object with the following:
 
-**title, user_id, and trip_id are REQUIRED**
+- a property `expense` that contains the expense object of which will be inserted into the database
+- a `users` array, containing the user `id`s that are splitting this expense
 
-> the `user_id` and `trip_id` are to let the database know which user and trip the expense _belongs_ to.
+**title, users, and trip_id are REQUIRED**
+
+> `trip_id` is to let the database know which trip the expense _belongs_ to.
+> This endpoint will create a new instance of `expense`, but will also create new instances of user expences for each user passed into the `users` array
+> The `amount` of the expense will be divided evenly between each `user`
 
 ```javascript
 {
-	"title": "New Expense",
-	"category": "Hotel",
-	"amount": 450.00,
-	"date": 1569542400,
-	"user_id": 2,
-	"trip_id": 3
+	"expense": {
+			"title": "Hotel - Weekend Stay",
+	    "category": "Lodging",
+			"amount": 400.00,
+			"date": 1569542400,
+			"trip_id": 2
+	},
+	"users": [1, 3]
 }
 ```
 
@@ -359,14 +420,37 @@ Returns: the complete expense object (`id` is automatically generated, `complete
 ```javascript
 {
   "id": 8,
-  "title": "New Expense",
-  "category": "Hotel",
-  "amount": 450,
+  "title": "Hotel - Weekend Stay",
+  "category": "Lodging",
+  "amount": 400,
   "date": 1569542400,
-  "user_id": 2,
-  "trip_id": 3,
+  "trip_id": 2,
   "complete": false
 }
+```
+
+---
+
+### [POST] Trip Users
+
+#### URL: https://tripsplit-backend.herokuapp.com/api/trips/user
+
+Payload: an object as follows:
+
+```javascript
+{
+	"trip_id": 1,
+	"user_id": 1,
+	"title": "Paris Bussiness Trip",
+  "location": "Paris, France",
+  "start_date": 1560643200,
+  "end_date": 1561248000
+}
+```
+
+Returns:
+
+```javascript
 ```
 
 ---
@@ -399,7 +483,6 @@ Returns: the complete trip object, including the changes made in the request.
   "location": "Updated",
   "start_date": 1569542454,
   "end_date": 1569974454,
-  "user_id": 3,
   "complete": true
 }
 ```
@@ -433,7 +516,6 @@ Returns: the complete expense object, including the changes made in the request.
   "category": "Updated Category",
   "amount": 56.5,
   "date": 1569542400,
-  "user_id": 2,
   "trip_id": 3,
   "complete": true
 }

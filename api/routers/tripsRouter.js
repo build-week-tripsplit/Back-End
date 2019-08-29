@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Trips = require("../helpers/trips-model");
+const TripUsers = require("../helpers/trip_users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
 
 router.get("/", (req, res) => {
@@ -20,7 +21,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/user/:id", (req, res) => {
-  Trips.findUserTrips(req.params.id)
+  TripUsers.findUserTrips(req.params.id)
     .then(trips => {
       res.json(trips);
     })
@@ -37,6 +38,16 @@ router.post("/", (req, res) => {
   }
 
   Trips.add(trip)
+    .then(saved => {
+      res.json(saved);
+    })
+    .catch(err => res.send(err));
+});
+
+router.post("/user", (req, res) => {
+  const trip = req.body;
+
+  TripUsers.add(trip)
     .then(saved => {
       res.json(saved);
     })

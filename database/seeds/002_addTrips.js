@@ -6,7 +6,6 @@ const tripData = [
     location: "Paris, France",
     start_date: 1560643200,
     end_date: 1561248000,
-    user_id: 1,
     complete: true
   },
   {
@@ -15,7 +14,6 @@ const tripData = [
     location: "Bali, Indonesia",
     start_date: 1569542400,
     end_date: 1569974400,
-    user_id: 1,
     complete: false
   },
   {
@@ -24,7 +22,6 @@ const tripData = [
     location: "Orlando, Florida",
     start_date: 1570665600,
     end_date: 1570924800,
-    user_id: 1,
     complete: false
   }
 ];

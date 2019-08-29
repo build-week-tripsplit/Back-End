@@ -35,6 +35,8 @@ function findUserExpenses(user_id) {
 // }
 
 async function add(expense) {
+  // return await db("expenses").insert(expense);
+
   const [newExpense] = await db("expenses")
     .insert(expense)
     .returning("*");
