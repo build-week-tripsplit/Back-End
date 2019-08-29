@@ -30,20 +30,81 @@ router.get("/user/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.post("/", (req, res) => {
-  const trip = req.body;
+// router.post("/", (req, res) => {
+//   const trip = req.body;
 
-  if (!trip.title) {
+//   if (!trip.title) {
+//     res.status(500).json({
+//       message: "Must include trip title"
+//     });
+//   }
+
+//   Trips.add(trip)
+//     .then(saved => {
+//       res.json(saved);
+//     })
+//     .catch(err => res.send(err));
+// });
+
+// {
+// 	"trip": {
+// 			"title": "Paris Business Trip",
+// 	    "description": "Going to Paris for kdjsljd",
+// 			"location": "Paris, France",
+// 			"start_date": 1560643200,
+// 			"end_date": 1561248000
+// 	},
+// 	"users": [1, 2]
+// }
+
+router.post("/", async (req, res) => {
+  const trip = req.body.trip;
+  const title = trip.title;
+  const description = trip.description;
+  const location = trip.location;
+  const start_date = trip.start_date;
+  const end_date = trip.end_date;
+  const usersArray = req.body.users;
+
+  console.log("REQUEST: ", req.body);
+  console.log("trip: ", trip);
+
+  if (!trip.title || !usersArray) {
     res.status(500).json({
-      message: "Must include trip title"
+      message: "Must include trip title, and users array"
     });
   }
 
   Trips.add(trip)
     .then(saved => {
-      res.json(saved);
+      console.log(" got here");
+      //change to saved.id for postgres-------------------------------->
+      const trip_id = saved.id;
+
+      console.log("added trip");
+      usersArray.forEach(user => {
+        TripUsers.add(
+          trip_id,
+          user,
+          title,
+          description,
+          location,
+          start_date,
+          end_date
+        )
+          .then(saved => {
+            console.log(saved);
+          })
+          .catch(err =>
+            res.status(500).json({
+              err,
+              message: "error adding individual trips to users"
+            })
+          );
+      });
+      res.status(201).json(saved);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json({ err, message: "error out here" }));
 });
 
 router.post("/user", (req, res) => {

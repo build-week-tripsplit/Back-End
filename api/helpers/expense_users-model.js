@@ -13,10 +13,19 @@ module.exports = {
 //   return db("expense_users").where(filter);
 // }
 
+// function findUserExpenses(user_id) {
+//   return db("expense_users")
+//     .where({ user_id })
+//     .returning("*");
+// }
+
+function findExpenseUsers() {
+  return db("expense_users").select("*");
+}
+
+// Chance change
 function findUserExpenses(user_id) {
-  return db("expense_users")
-    .where({ user_id })
-    .returning("*");
+  return db("expense_users").where({ user_id });
 }
 
 async function add(expense_id, user_id, amount, title, category, date) {

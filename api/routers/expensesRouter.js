@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const Expenses = require("../helpers/expenses-model");
 const ExpenseUsers = require("../helpers/expense_users-model");
+const Trips = require("../helpers/trips-model");
 // const restricted = require("../../customMiddleware/restricted-middleware");
 
 router.get("/", (req, res) => {
@@ -20,19 +21,39 @@ router.get("/:id", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/all", (req, res) => {
-  Expenses.findUserExpenses()
-    .then(expenses => {
-      res.status(200).json(expenses);
-    })
-    .catch(err => res.status(500).json(err));
-});
+// router.get("/all", (req, res) => {
+//   Expenses.findUserExpenses()
+//     .then(expenses => {
+//       res.status(200).json(expenses);
+//     })
+//     .catch(err => res.status(500).json(err));
+// });
 
-router.get("/user/:id", (req, res) => {
-  Expenses.findUserExpenses(req.params.id)
-    .then(expenses => {
-      // res.json(expenses);
-      res.status(202).json(expenses);
+router.get("/user/:id", async (req, res) => {
+  ExpenseUsers.findUserExpenses(req.params.id)
+    .then(async expenses => {
+      const expenseIds = [];
+
+      expenses.forEach(expense => {
+        expenseIds.push(expense.expense_id);
+      });
+
+      var tripIds = [];
+
+      try {
+        await expenseIds.forEach(async (id, index, array) => {
+          const response = await Expenses.findById(id);
+          tripIds.push(response.trip_id);
+          if (index === array.length - 1) {
+            const result = expenses.map((expense, index) => {
+              return { ...expense, trip_id: tripIds[index] };
+            });
+            res.status(200).json(result);
+          }
+        });
+      } catch {
+        console.error(err);
+      }
     })
     .catch(err => res.status(500).json(err));
 });
@@ -65,9 +86,6 @@ router.post("/", async (req, res) => {
   const date = expense.date;
   const usersArray = req.body.users;
 
-  console.log("REQUEST: ", req.body);
-  console.log("EXPENSE: ", expense);
-
   const perUserAmount = amount / usersArray.length;
   const fixedDecimalAmount = Math.round(perUserAmount * 100) / 100;
 
@@ -79,11 +97,9 @@ router.post("/", async (req, res) => {
 
   Expenses.add(expense)
     .then(saved => {
-      console.log(" got here");
       //change to saved.id for postgres-------------------------------->
       const expense_id = saved.id;
 
-      console.log("added expense");
       usersArray.forEach(user => {
         ExpenseUsers.add(
           expense_id,

@@ -5,9 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findUserExpenses,
   remove,
-  findExpenseUsers,
   update
 };
 
@@ -28,15 +26,6 @@ function findById(id) {
 // function findUserExpenses(user_id) {
 //   return db("expenses").where({ user_id });
 // }
-
-function findExpenseUsers() {
-  return db("expense_users").select("*");
-}
-
-// Chance change
-function findUserExpenses(user_id) {
-  return db("expense_users").where({ user_id });
-}
 
 // async function add(expense) {
 //   const [id] = await db("expenses").insert(expense);
