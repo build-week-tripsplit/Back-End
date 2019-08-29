@@ -24,8 +24,13 @@ function findById(id) {
     .first();
 }
 
+// function findUserExpenses(user_id) {
+//   return db("expenses").where({ user_id });
+// }
+
+
 function findUserExpenses(user_id) {
-  return db("expenses").where({ user_id });
+  return db("expense_users").where({ user_id });
 }
 
 // async function add(expense) {
