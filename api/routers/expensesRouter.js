@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/user/:id", (req, res) => {
-  ExpenseUsers.findUserExpenses(req.params.id)
+  Expenses.findUserExpenses(req.params.id)
     .then(expenses => {
       // res.json(expenses);
       res.status(202).json(expenses);
