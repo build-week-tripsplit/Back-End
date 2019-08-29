@@ -31,9 +31,9 @@ router.get("/user/:id", (req, res) => {
 router.post("/", (req, res) => {
   const trip = req.body;
 
-  if (!trip.title || !trip.user_id) {
+  if (!trip.title) {
     res.status(500).json({
-      message: "Must include trip title & user_id"
+      message: "Must include trip title"
     });
   }
 
