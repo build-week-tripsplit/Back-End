@@ -61,7 +61,7 @@ Payload: an object with the following.
 }
 ```
 
-Returns: an object with a message and authentication token. Save this token to local storage (or similar). This token will be required for all HTTP requests below (protected endpoints).
+Returns: an object with a welcome message, authentication token, and user info. Save this token to local storage (or similar). This token will be required for all HTTP requests below (protected endpoints).
 
 ```javascript
 {
