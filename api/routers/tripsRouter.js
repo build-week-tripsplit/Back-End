@@ -12,12 +12,36 @@ router.get("/", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", (req, res) => {
-  Trips.findById(req.params.id)
-    .then(trip => {
-      res.json(trip);
-    })
-    .catch(err => res.send(err));
+router.get("/:id", async (req, res) => {
+  try {
+    const trip = await Trips.findById(req.params.id);
+
+    if (trip) {
+      const tripObjects = await TripUsers.findByTripId(trip.id);
+
+      const tripUsers = [];
+
+      tripObjects.forEach(item => {
+        tripUsers.push(item.user_id);
+      });
+
+      console.log("TRIP USERS: ", tripUsers);
+      console.log("TRIP: ", trip);
+
+      const result = {
+        ...trip,
+        users: tripUsers
+      };
+
+      res.status(202).json(result);
+    }
+  } catch (err) {}
+
+  // .then(trip => {
+
+  //   res.json(trip);
+  // })
+  // .catch(err => res.send(err));
 });
 
 router.get("/user/:id", (req, res) => {

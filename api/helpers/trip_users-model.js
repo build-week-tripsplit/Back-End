@@ -2,7 +2,8 @@ const db = require("../../data/dbConfig");
 
 module.exports = {
   add,
-  findUserTrips
+  findUserTrips,
+  findByTripId
 };
 
 // function find() {
@@ -15,6 +16,10 @@ module.exports = {
 
 function findUserTrips(user_id) {
   return db("trip_users").where({ user_id });
+}
+
+function findByTripId(trip_id) {
+  return db("trip_users").where({ trip_id });
 }
 
 async function add(
