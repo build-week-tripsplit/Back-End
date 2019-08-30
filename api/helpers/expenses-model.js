@@ -23,19 +23,7 @@ function findById(id) {
     .first();
 }
 
-// function findUserExpenses(user_id) {
-//   return db("expenses").where({ user_id });
-// }
-
-// async function add(expense) {
-//   const [id] = await db("expenses").insert(expense);
-
-//   return findById(id);
-// }
-
 async function add(expense) {
-  // return await db("expenses").insert(expense);
-
   const [newExpense] = await db("expenses")
     .insert(expense)
     .returning("*");

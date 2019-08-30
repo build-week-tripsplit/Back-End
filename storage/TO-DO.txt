@@ -1,8 +1,0 @@
-fix add trip endpoint, automatically populate trip_users table with users array
-
-make endpoint to find users by username
-
-get user expenses endpoint is broken 
-
-
-22nd 9am 

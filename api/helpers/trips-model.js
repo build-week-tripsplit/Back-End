@@ -17,28 +17,11 @@ function findBy(filter) {
   return db("trips").where(filter);
 }
 
-//findById - need user ids array
-//Trips.findById().then(trip => {
-//  TripUsers.findByTripId( db.("trip_users").where({ trip_id })
-//   grab user_ids from all responses, push to array, return array
-//   with trip object return as users: [] )
-//}).catch
-
 function findById(id) {
   return db("trips")
     .where({ id })
     .first();
 }
-
-// function findUserTrips(user_id) {
-//   return db("trips").where({ user_id });
-// }
-
-// async function add(trip) {
-//   const [id] = await db("trips").insert(trip);
-
-//   return findById(id);
-// }
 
 async function add(trip) {
   const [newTrip] = await db("trips")

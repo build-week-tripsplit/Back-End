@@ -36,50 +36,15 @@ router.get("/:id", async (req, res) => {
       res.status(202).json(result);
     }
   } catch (err) {}
-
-  // .then(trip => {
-
-  //   res.json(trip);
-  // })
-  // .catch(err => res.send(err));
 });
 
 router.get("/user/:id", (req, res) => {
   TripUsers.findUserTrips(req.params.id)
     .then(trips => {
-      // res.json(trips);
-      // chance-----
       res.status(202).json(trips);
     })
     .catch(err => res.status(500).json(err));
 });
-
-// router.post("/", (req, res) => {
-//   const trip = req.body;
-
-//   if (!trip.title) {
-//     res.status(500).json({
-//       message: "Must include trip title"
-//     });
-//   }
-
-//   Trips.add(trip)
-//     .then(saved => {
-//       res.json(saved);
-//     })
-//     .catch(err => res.send(err));
-// });
-
-// {
-// 	"trip": {
-// 			"title": "Paris Business Trip",
-// 	    "description": "Going to Paris for kdjsljd",
-// 			"location": "Paris, France",
-// 			"start_date": 1560643200,
-// 			"end_date": 1561248000
-// 	},
-// 	"users": [1, 2]
-// }
 
 router.post("/", async (req, res) => {
   const trip = req.body.trip;
