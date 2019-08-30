@@ -401,11 +401,11 @@ Payload: an object with the following:
 ```javascript
 {
 	"trip": {
-			"title": "New Trip",
-	    "description": "Going on a trip to a place!",
-	    "location": "Somewhere",
-	    "start_date": 1569542400,
-      "end_date": 1569974400
+		"title": "New Trip",
+	  "description": "Going on a trip to a place!",
+	  "location": "Somewhere",
+	  "start_date": 1569542400,
+    "end_date": 1569974400
 	},
 	"users": [3, 7]
 }
