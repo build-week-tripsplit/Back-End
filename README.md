@@ -65,8 +65,13 @@ Returns: an object with a message and authentication token. Save this token to l
 
 ```javascript
 {
-  "message": "Welcome John!",
-  "token": "some crazy string of letters and numbers"
+  "message": "Welcome newUsername!",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6Im5ld1VzZXI0IiwiaWF0IjoxNTY3MTAwNTAzLCJleHAiOjE1NjcxODY5MDN9.BrCNULMh7pLMFGzY6HyX5CK_tA7ek8bUQSFiWkrPBQQ",
+  "user_id": 5,
+  "username": "newUsername",
+  "email": "johndoe@gmail.com",
+  "firstName": "John",
+  "lastName": "Doe"
 }
 ```
 
