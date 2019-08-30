@@ -5,25 +5,74 @@ const hash = bcrypt.hashSync("password", 10);
 
 const usersData = [
   {
-    username: "username",
-    email: "email@email.com",
+    username: "bsmith",
+    email: "bob.smith@gmail.com",
     password: hash,
     firstName: "Bob",
     lastName: "Smith"
   },
   {
-    username: "username2",
-    email: "email2@email.com",
+    username: "larry",
+    email: "larryj@gmail.com",
     password: hash,
-    firstName: "Lazy",
-    lastName: "Larry"
+    firstName: "Larry",
+    lastName: "Johnson"
   },
   {
-    username: "username3",
-    email: "email3@email.com",
+    username: "suzieQ",
+    email: "suzz87@gmail.com",
     password: hash,
-    firstName: "John",
-    lastName: "Doe"
+    firstName: "Suzan",
+    lastName: "Edmond"
+  },
+  {
+    username: "jen_nifer",
+    email: "jen.g.m@gmail.com",
+    password: hash,
+    firstName: "Jennifer",
+    lastName: "Gewin"
+  },
+  {
+    username: "jake-boy",
+    email: "jake_swanson_91@gmail.com",
+    password: hash,
+    firstName: "Jake",
+    lastName: "Swanson"
+  },
+  {
+    username: "sam_say_what",
+    email: "samanthasmith@gmail.com",
+    password: hash,
+    firstName: "Sam",
+    lastName: "Smith"
+  },
+  {
+    username: "hail_hailey",
+    email: "haileyjohnson@gmail.com",
+    password: hash,
+    firstName: "Hailey",
+    lastName: "Johnson"
+  },
+  {
+    username: "tessalate",
+    email: "tessasmiles@gmail.com",
+    password: hash,
+    firstName: "Tessa",
+    lastName: "Peterson"
+  },
+  {
+    username: "tytytheguy",
+    email: "ty@gmail.com",
+    password: hash,
+    firstName: "Ty",
+    lastName: "Rogers"
+  },
+  {
+    username: "amber_ok",
+    email: "amber.rogers@gmail.com",
+    password: hash,
+    firstName: "Amber",
+    lastName: "Rogers"
   }
 ];
 
