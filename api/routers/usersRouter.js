@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
 
-router.get("/", (req, res) => {
+router.get("/", restricted, (req, res) => {
   Users.find()
     .then(users => {
       res.json(users);
@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
   Users.findById(req.params.id)
     .then(user => {
       res.json(user);
@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.get("/getby/:username", (req, res) => {
+router.get("/getby/:username", restricted, (req, res) => {
   console.log(req.params.username);
   Users.findByUsername(req.params.username)
     .then(user => {

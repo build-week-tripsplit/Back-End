@@ -24,7 +24,7 @@ exports.up = function(knex) {
 
     tbl.string("category");
 
-    tbl.integer("date");
+    tbl.date("date");
 
     tbl.boolean("complete").defaultTo(false);
   });

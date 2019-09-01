@@ -30,12 +30,12 @@ Payload: an object with the following, first_name and last_name are optional.
   "username": "newUsername",
   "password": "newPassword",
   "email" : "johndoe@gmail.com",
-  "firstName": "John",
-  "lastName": "Doe"
+  "first_name": "John",
+  "last_name": "Doe"
 }
 ```
 
-Returns: an object with user id, username, password, and email. If fist_name and/or last_name were included in the request body, they will also be returned here. The returned password will be hashed, ignore it 😄
+Returns: an object with user id, username, password, and email. The returned password will be hashed, ignore it 😄
 
 ```javascript
 {
@@ -43,8 +43,8 @@ Returns: an object with user id, username, password, and email. If fist_name and
   "username": "newUsername",
   "password": "hashedPassword",
   "email": "johndoe@gmail.com",
-  "firstName": "John",
-  "lastName": "Doe"
+  "first_name": "John",
+  "last_name": "Doe"
 }
 ```
 
@@ -70,8 +70,8 @@ Returns: an object with a welcome message, authentication token, and user info. 
   "user_id": 5,
   "username": "newUsername",
   "email": "johndoe@gmail.com",
-  "firstName": "John",
-  "lastName": "Doe"
+  "first_name": "John",
+  "last_name": "Doe"
 }
 ```
 
@@ -115,16 +115,16 @@ Returns: an array of registered user objects.
     username: "user1",
     password: "hashed password",
     email: "user1@gmail.com",
-    firstName: "Bob",
-    lastName: "Smith"
+    first_name: "Bob",
+    last_name: "Smith"
   },
   {
     id: 2,
     username: "user2",
     password: "hashed password",
     email: "user2@gmail.com",
-    firstName: null,
-    lastName: null
+    first_name: null,
+    last_name: null
   }
 ];
 ```
@@ -143,8 +143,8 @@ Returns: the user object.
       "username": "user1",
       "password": "hashed password",
       "email": "user1@gmail.com",
-      "firstName": "Bob",
-      "lastName": "Smith"
+      "first_name": "Bob",
+      "last_name": "Smith"
     }
 ```
 
@@ -162,8 +162,8 @@ Returns: the user object.
   "username": "username",
   "email": "email@email.com",
   "password": "hashed password,
-  "firstName": "Bob",
-  "lastName": "Smith"
+  "first_name": "Bob",
+  "last_name": "Smith"
 }
 ```
 

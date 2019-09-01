@@ -3,7 +3,7 @@ const expenseData = [
     title: "Hotel - Entire Trip",
     category: "Lodging",
     amount: 2500.0,
-    date: 1546387932,
+    date: "2019-07-15",
     trip_id: 1,
     complete: true
   },
@@ -11,7 +11,7 @@ const expenseData = [
     title: "Food - Entire Trip",
     category: "Food/Beverage",
     amount: 550.0,
-    date: 1546733532,
+    date: "2019-07-15",
     trip_id: 1,
     complete: true
   },
@@ -19,7 +19,7 @@ const expenseData = [
     title: "Drinks in the Hotel Lounge",
     category: "Food/Beverage",
     amount: 80.0,
-    date: 1546733532,
+    date: "2019-07-15",
     trip_id: 1,
     complete: true
   },
@@ -27,7 +27,7 @@ const expenseData = [
     title: "Hostel Expense",
     category: "Lodging",
     amount: 300.0,
-    date: 1551485532,
+    date: "2019-07-20",
     trip_id: 2,
     complete: true
   },
@@ -35,7 +35,7 @@ const expenseData = [
     title: "Flight - Roundtrip",
     category: "Transportation",
     amount: 4500.0,
-    date: 1551485532,
+    date: "2019-07-20",
     trip_id: 2,
     complete: true
   },
@@ -43,7 +43,7 @@ const expenseData = [
     title: "Beach Party!",
     category: "Entertainment",
     amount: 100.0,
-    date: 1552090332,
+    date: "2019-07-30",
     trip_id: 2,
     complete: true
   },
@@ -51,7 +51,7 @@ const expenseData = [
     title: "Bike Rental",
     category: "Transportation",
     amount: 200.0,
-    date: 1552090332,
+    date: "2019-07-30",
     trip_id: 2,
     complete: true
   },
@@ -59,7 +59,7 @@ const expenseData = [
     title: "Gas - Road Trip",
     category: "Transportation",
     amount: 250.0,
-    date: 1560039132,
+    date: "2019-08-10",
     trip_id: 3,
     complete: true
   },
@@ -67,7 +67,7 @@ const expenseData = [
     title: "Park Tickets",
     category: "Entertainment",
     amount: 1200.0,
-    date: 1560039132,
+    date: "2019-08-10",
     trip_id: 3,
     complete: true
   },
@@ -75,7 +75,7 @@ const expenseData = [
     title: "Club",
     category: "Entertainment",
     amount: 90.0,
-    date: 1566087132,
+    date: "2019-08-31",
     trip_id: 4,
     complete: true
   },
@@ -83,7 +83,7 @@ const expenseData = [
     title: "Drinks",
     category: "Food/Beverage",
     amount: 120.0,
-    date: 1566087132,
+    date: "2019-08-31",
     trip_id: 4,
     complete: true
   },
@@ -91,7 +91,7 @@ const expenseData = [
     title: "Uber",
     category: "Transportation",
     amount: 20.0,
-    date: 1566087132,
+    date: "2019-08-31",
     trip_id: 4,
     complete: false
   },
@@ -99,7 +99,7 @@ const expenseData = [
     title: "Cruise Tix",
     category: "Entertainment",
     amount: 12000.0,
-    date: 1575331932,
+    date: "2019-09-10",
     trip_id: 5,
     complete: false
   },
@@ -107,7 +107,7 @@ const expenseData = [
     title: "Drinks/Extras",
     category: "Food/Beverage",
     amount: 800.0,
-    date: 1575331932,
+    date: "2019-09-10",
     trip_id: 5,
     complete: false
   },
@@ -115,7 +115,7 @@ const expenseData = [
     title: "Hotel",
     category: "Lodging",
     amount: 2000.0,
-    date: 1581120732,
+    date: "2019-09-30",
     trip_id: 6,
     complete: false
   },
@@ -123,7 +123,7 @@ const expenseData = [
     title: "Flights - Round Trip",
     category: "Transportation",
     amount: 8400.0,
-    date: 1581120732,
+    date: "2019-09-30",
     trip_id: 6,
     complete: false
   }

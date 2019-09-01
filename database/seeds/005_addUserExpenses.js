@@ -5,7 +5,7 @@ const userExpenseData = [
     title: "Hotel - Entire Trip",
     category: "Lodging",
     amount: 1250.0,
-    date: 1546387932,
+    date: "2019-07-15",
     complete: true
   },
   {
@@ -14,7 +14,7 @@ const userExpenseData = [
     title: "Hotel - Entire Trip",
     category: "Lodging",
     amount: 1250.0,
-    date: 1546387932,
+    date: "2019-07-15",
     complete: true
   },
   {
@@ -23,7 +23,7 @@ const userExpenseData = [
     title: "Food - Entire Trip",
     category: "Food/Beverage",
     amount: 275.0,
-    date: 1546733532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -32,7 +32,7 @@ const userExpenseData = [
     title: "Food - Entire Trip",
     category: "Food/Beverage",
     amount: 275.0,
-    date: 1546733532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -41,7 +41,7 @@ const userExpenseData = [
     title: "Drinks in the Hotel Lounge",
     category: "Food/Beverage",
     amount: 40.0,
-    date: 1546733532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -50,7 +50,7 @@ const userExpenseData = [
     title: "Drinks in the Hotel Lounge",
     category: "Food/Beverage",
     amount: 40.0,
-    date: 1546733532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -59,7 +59,7 @@ const userExpenseData = [
     title: "Hostel Expense",
     category: "Lodging",
     amount: 100.0,
-    date: 1551485532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -68,7 +68,7 @@ const userExpenseData = [
     title: "Hostel Expense",
     category: "Lodging",
     amount: 100.0,
-    date: 1551485532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -77,7 +77,7 @@ const userExpenseData = [
     title: "Hostel Expense",
     category: "Lodging",
     amount: 100.0,
-    date: 1551485532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -86,7 +86,7 @@ const userExpenseData = [
     title: "Flight - Roundtrip",
     category: "Transportation",
     amount: 1500.0,
-    date: 1551485532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -95,7 +95,7 @@ const userExpenseData = [
     title: "Flight - Roundtrip",
     category: "Transportation",
     amount: 1500.0,
-    date: 1551485532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -104,7 +104,7 @@ const userExpenseData = [
     title: "Flight - Roundtrip",
     category: "Transportation",
     amount: 1500.0,
-    date: 1551485532,
+    date: "2019-07-20",
     complete: true
   },
   {
@@ -113,7 +113,7 @@ const userExpenseData = [
     title: "Beach Party!",
     category: "Entertainment",
     amount: 33.33,
-    date: 1552090332,
+    date: "2019-07-30",
     complete: true
   },
   {
@@ -122,7 +122,7 @@ const userExpenseData = [
     title: "Beach Party!",
     category: "Entertainment",
     amount: 33.33,
-    date: 1552090332,
+    date: "2019-07-30",
     complete: true
   },
   {
@@ -131,7 +131,7 @@ const userExpenseData = [
     title: "Beach Party!",
     category: "Entertainment",
     amount: 33.33,
-    date: 1552090332,
+    date: "2019-07-30",
     complete: true
   },
   {
@@ -140,7 +140,7 @@ const userExpenseData = [
     title: "Bike Rental",
     category: "Transportation",
     amount: 66.66,
-    date: 1552090332,
+    date: "2019-07-30",
     complete: true
   },
   {
@@ -149,7 +149,7 @@ const userExpenseData = [
     title: "Bike Rental",
     category: "Transportation",
     amount: 66.66,
-    date: 1552090332,
+    date: "2019-07-30",
     complete: true
   },
   {
@@ -158,7 +158,7 @@ const userExpenseData = [
     title: "Bike Rental",
     category: "Transportation",
     amount: 66.66,
-    date: 1552090332,
+    date: "2019-07-30",
     complete: true
   },
   {
@@ -167,7 +167,7 @@ const userExpenseData = [
     title: "Gas - Road Trip",
     category: "Transportation",
     amount: 125.0,
-    date: 1560039132,
+    date: "2019-08-10",
     complete: true
   },
   {
@@ -176,7 +176,7 @@ const userExpenseData = [
     title: "Gas - Road Trip",
     category: "Transportation",
     amount: 125.0,
-    date: 1560039132,
+    date: "2019-08-10",
     complete: true
   },
   {
@@ -185,7 +185,7 @@ const userExpenseData = [
     title: "Park Tickets",
     category: "Entertainment",
     amount: 600.0,
-    date: 1560039132,
+    date: "2019-08-10",
     complete: true
   },
   {
@@ -194,7 +194,7 @@ const userExpenseData = [
     title: "Park Tickets",
     category: "Entertainment",
     amount: 600.0,
-    date: 1560039132,
+    date: "2019-08-10",
     complete: true
   },
   {
@@ -203,7 +203,7 @@ const userExpenseData = [
     title: "Club",
     category: "Entertainment",
     amount: 30.0,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: true
   },
   {
@@ -212,7 +212,7 @@ const userExpenseData = [
     title: "Club",
     category: "Entertainment",
     amount: 30.0,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: true
   },
   {
@@ -221,7 +221,7 @@ const userExpenseData = [
     title: "Club",
     category: "Entertainment",
     amount: 30.0,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: true
   },
   {
@@ -230,7 +230,7 @@ const userExpenseData = [
     title: "Drinks",
     category: "Food/Beverage",
     amount: 40.0,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: true
   },
   {
@@ -239,7 +239,7 @@ const userExpenseData = [
     title: "Drinks",
     category: "Food/Beverage",
     amount: 40.0,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: true
   },
   {
@@ -248,7 +248,7 @@ const userExpenseData = [
     title: "Drinks",
     category: "Food/Beverage",
     amount: 40.0,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: true
   },
   {
@@ -257,7 +257,7 @@ const userExpenseData = [
     title: "Uber",
     category: "Transportation",
     amount: 6.66,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: false
   },
   {
@@ -266,7 +266,7 @@ const userExpenseData = [
     title: "Uber",
     category: "Transportation",
     amount: 6.66,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: false
   },
   {
@@ -275,7 +275,7 @@ const userExpenseData = [
     title: "Uber",
     category: "Transportation",
     amount: 6.66,
-    date: 1566087132,
+    date: "2019-08-31",
     complete: false
   },
   {
@@ -284,7 +284,7 @@ const userExpenseData = [
     title: "Cruise Tix",
     category: "Entertainment",
     amount: 3000.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -293,7 +293,7 @@ const userExpenseData = [
     title: "Cruise Tix",
     category: "Entertainment",
     amount: 3000.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -302,7 +302,7 @@ const userExpenseData = [
     title: "Cruise Tix",
     category: "Entertainment",
     amount: 3000.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -311,7 +311,7 @@ const userExpenseData = [
     title: "Cruise Tix",
     category: "Entertainment",
     amount: 3000.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -320,7 +320,7 @@ const userExpenseData = [
     title: "Drinks/Extras",
     category: "Food/Beverage",
     amount: 200.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -329,7 +329,7 @@ const userExpenseData = [
     title: "Drinks/Extras",
     category: "Food/Beverage",
     amount: 200.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -338,7 +338,7 @@ const userExpenseData = [
     title: "Drinks/Extras",
     category: "Food/Beverage",
     amount: 200.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -347,7 +347,7 @@ const userExpenseData = [
     title: "Drinks/Extras",
     category: "Food/Beverage",
     amount: 200.0,
-    date: 1575331932,
+    date: "2019-09-10",
     complete: false
   },
   {
@@ -356,7 +356,7 @@ const userExpenseData = [
     title: "Hotel",
     category: "Lodging",
     amount: 500.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -365,7 +365,7 @@ const userExpenseData = [
     title: "Hotel",
     category: "Lodging",
     amount: 500.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -374,7 +374,7 @@ const userExpenseData = [
     title: "Hotel",
     category: "Lodging",
     amount: 500.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -383,7 +383,7 @@ const userExpenseData = [
     title: "Hotel",
     category: "Lodging",
     amount: 500.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -392,7 +392,7 @@ const userExpenseData = [
     title: "Flights - Round Trip",
     category: "Transportation",
     amount: 2100.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -401,7 +401,7 @@ const userExpenseData = [
     title: "Flights - Round Trip",
     category: "Transportation",
     amount: 2100.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -410,7 +410,7 @@ const userExpenseData = [
     title: "Flights - Round Trip",
     category: "Transportation",
     amount: 2100.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   },
   {
@@ -419,7 +419,7 @@ const userExpenseData = [
     title: "Flights - Round Trip",
     category: "Transportation",
     amount: 2100.0,
-    date: 1581120732,
+    date: "2019-09-30",
     complete: false
   }
 ];

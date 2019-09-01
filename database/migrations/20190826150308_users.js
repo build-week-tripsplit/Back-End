@@ -14,9 +14,9 @@ exports.up = function(knex) {
 
     tbl.string("password", 255).notNullable();
 
-    tbl.string("firstName", 255);
+    tbl.string("first_name", 255);
 
-    tbl.string("lastName", 255);
+    tbl.string("last_name", 255);
   });
 };
 

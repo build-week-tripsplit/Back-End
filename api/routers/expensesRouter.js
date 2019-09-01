@@ -3,9 +3,9 @@ const router = require("express").Router();
 const Expenses = require("../helpers/expenses-model");
 const ExpenseUsers = require("../helpers/expense_users-model");
 const Trips = require("../helpers/trips-model");
-// const restricted = require("../../customMiddleware/restricted-middleware");
+const restricted = require("../../customMiddleware/restricted-middleware");
 
-router.get("/", (req, res) => {
+router.get("/", restricted, (req, res) => {
   Expenses.find()
     .then(expenses => {
       res.json(expenses);
@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
   Expenses.findById(req.params.id)
     .then(expense => {
       res.json(expense);
@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
 //     .catch(err => res.status(500).json(err));
 // });
 
-router.get("/user/:id", async (req, res) => {
+router.get("/user/:id", restricted, async (req, res) => {
   ExpenseUsers.findUserExpenses(req.params.id)
     .then(async expenses => {
       const expenseIds = [];
@@ -78,7 +78,7 @@ router.get("/user/:id", async (req, res) => {
 
 //NEW POST to handle new expense_users
 
-router.post("/", async (req, res) => {
+router.post("/", restricted, async (req, res) => {
   const expense = req.body.expense;
   const amount = expense.amount;
   const title = expense.title;
@@ -124,7 +124,7 @@ router.post("/", async (req, res) => {
     .catch(err => res.status(500).json({ err, message: "error out here" }));
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", restricted, async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -142,7 +142,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", restricted, async (req, res) => {
   const { id } = req.params;
 
   try {

@@ -24,9 +24,9 @@ exports.up = function(knex) {
 
     tbl.string("location");
 
-    tbl.integer("start_date");
+    tbl.date("start_date");
 
-    tbl.integer("end_date");
+    tbl.date("end_date");
 
     tbl.boolean("complete").defaultTo(false);
   });
