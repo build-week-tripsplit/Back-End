@@ -26,3 +26,15 @@ for (let i = 0; i < 100; i++) {
 console.log(fakeUsers);
 
 //copied and pasted over to users seeds
+
+const feels = [
+  "happy",
+  "sad",
+  "laughing",
+  "smiling",
+  "angry",
+  "excited",
+  "fullfilled",
+  "anxious",
+  "loved"
+];

@@ -5,20 +5,22 @@ const ExpenseUsers = require("../helpers/expense_users-model");
 const Trips = require("../helpers/trips-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
 
+//GET ALL EXPENSES
 router.get("/", restricted, (req, res) => {
   Expenses.find()
     .then(expenses => {
-      res.json(expenses);
+      res.status(200).json(expenses);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
+//GET EXPENSE BY ID
 router.get("/:id", restricted, (req, res) => {
   Expenses.findById(req.params.id)
     .then(expense => {
-      res.json(expense);
+      res.status(200).json(expense);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
 // router.get("/all", (req, res) => {
@@ -29,55 +31,41 @@ router.get("/:id", restricted, (req, res) => {
 //     .catch(err => res.status(500).json(err));
 // });
 
+//GET USER EXPENSES
 router.get("/user/:id", restricted, async (req, res) => {
-  ExpenseUsers.findUserExpenses(req.params.id)
-    .then(async expenses => {
+  try {
+    const userExpenses = await ExpenseUsers.findUserExpenses(req.params.id);
+
+    if (userExpenses.length) {
       const expenseIds = [];
 
-      expenses.forEach(expense => {
+      userExpenses.forEach(expense => {
         expenseIds.push(expense.expense_id);
       });
 
       var tripIds = [];
 
-      try {
-        await expenseIds.forEach(async (id, index, array) => {
-          const response = await Expenses.findById(id);
-          tripIds.push(response.trip_id);
-          if (index === array.length - 1) {
-            const result = expenses.map((expense, index) => {
-              return { ...expense, trip_id: tripIds[index] };
-            });
-            res.status(200).json(result);
-          }
-        });
-      } catch {
-        console.error(err);
-      }
-    })
-    .catch(err => res.status(500).json(err));
+      await expenseIds.forEach(async (id, index, array) => {
+        const response = await Expenses.findById(id);
+        tripIds.push(response.trip_id);
+        if (index === array.length - 1) {
+          const result = userExpenses.map((expense, index) => {
+            return { ...expense, trip_id: tripIds[index] };
+          });
+          res.status(200).json(result);
+        }
+      });
+    } else {
+      res
+        .status(404)
+        .json({ message: "No expenses found for provided user id" });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-//OG POST for expenses
-
-// router.post("/", (req, res) => {
-//   const expense = req.body;
-
-//   if (!expense.title || !expense.user_id || !expense.trip_id) {
-//     res.status(500).json({
-//       message: "Must include expense title, user_id, and trip_id"
-//     });
-//   }
-
-//   Expenses.add(expense)
-//     .then(saved => {
-//       res.json(saved);
-//     })
-//     .catch(err => res.send(err));
-// });
-
-//NEW POST to handle new expense_users
-
+//POST EXPENSE
 router.post("/", restricted, async (req, res) => {
   const expense = req.body.expense;
   const amount = expense.amount;
@@ -124,24 +112,32 @@ router.post("/", restricted, async (req, res) => {
     .catch(err => res.status(500).json({ err, message: "error out here" }));
 });
 
+//UPDATE EXPENSE
 router.put("/:id", restricted, async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  try {
-    const expense = await Expenses.findById(id);
+  if (changes.id) {
+    res.status(500).json({ message: "id cannot be changed" });
+  } else {
+    try {
+      const expense = await Expenses.findById(id);
 
-    if (expense) {
-      const updatedExpense = await Expenses.update(changes, id);
-      res.json(updatedExpense);
-    } else {
-      res.status(404).json({ message: "Could not find expense with given ID" });
+      if (expense) {
+        const updatedExpense = await Expenses.update(changes, id);
+        res.status(200).json(updatedExpense);
+      } else {
+        res
+          .status(404)
+          .json({ message: "Could not find expense with given ID" });
+      }
+    } catch (err) {
+      res.status(500).json({ message: "Something went wrong" });
     }
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
+//DELETE EXPENSE
 router.delete("/:id", restricted, async (req, res) => {
   const { id } = req.params;
 
