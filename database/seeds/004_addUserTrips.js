@@ -186,14 +186,8 @@ const userTripData = [
   }
 ];
 
-exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
-  return (
-    knex("trip_users")
-      //.truncate()
-      .then(() => {
-        // Inserts seed entries
-        return knex("trip_users").insert(userTripData);
-      })
-  );
+exports.seed = function(knex) {
+  return knex("trip_users").then(() => {
+    return knex("trip_users").insert(userTripData);
+  });
 };

@@ -1,4 +1,3 @@
-// const faker = require("faker");
 const bcrypt = require("bcryptjs");
 
 const hash = bcrypt.hashSync("password", 10);
@@ -777,11 +776,7 @@ const usersData = [
 ];
 
 exports.seed = function(knex, Promise) {
-  return (
-    knex("users")
-      //.truncate()
-      .then(() => {
-        return knex("users").insert(usersData);
-      })
-  );
+  return knex("users").then(() => {
+    return knex("users").insert(usersData);
+  });
 };
