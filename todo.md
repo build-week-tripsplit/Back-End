@@ -25,3 +25,11 @@ Let's create a database!
 ### Tools
 
 MySQL Workbench is a free GUI for managing your db's https://www.mysql.com/products/workbench/
+
+## ToDo for API
+
+- when posting a trip, check the user ids in the users array
+- when posting an expense, check the user ids in the users array
+- create PUT endpoint for users
+- create PUT endpoint for expense that automatically updates the expense users amounts
+- DELETE user from an expense adjust the expense users amount

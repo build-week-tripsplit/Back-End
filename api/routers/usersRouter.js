@@ -29,20 +29,21 @@ router.get("/", restricted, (req, res) => {
 });
 
 //DELETE USER BY ID
-router.delete("/:id", restricted, validateId, verifyUser, async (req, res) => {
-  const id = req.params.id;
-  try {
-    const user = await Users.find({ id });
-    if (user.length) {
+router.delete(
+  "/:id",
+  restricted,
+  validateId.validateUserId,
+  verifyUser,
+  async (req, res) => {
+    const id = req.params.id;
+    try {
       Users.remove({ id })
         .then(() => res.status(204).end())
         .catch(err => res.status(500).json(err));
-    } else {
-      res.status(400).json({ message: "user with given id does not exist" });
+    } catch (err) {
+      res.status(500).json(err);
     }
-  } catch (err) {
-    res.status(500).json(err);
   }
-});
+);
 
 module.exports = router;

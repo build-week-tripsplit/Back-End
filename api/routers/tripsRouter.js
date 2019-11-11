@@ -4,6 +4,7 @@ const Trips = require("../helpers/trips-model");
 const TripUsers = require("../helpers/trip_users-model");
 const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
+const validateId = require("../../customMiddleware/validateId");
 
 //GET ALL TRIPS
 router.get("/", restricted, (req, res) => {
@@ -15,54 +16,44 @@ router.get("/", restricted, (req, res) => {
 });
 
 //GET TRIP BY ID
-router.get("/:id", restricted, async (req, res) => {
+router.get("/:id", restricted, validateId.validateTripId, async (req, res) => {
   try {
-    const trip = await Trips.findById(req.params.id);
+    const trip = req.trip;
 
-    if (trip) {
-      const tripObjects = await TripUsers.findByTripId(trip.id);
+    const tripObjects = await TripUsers.findByTripId(trip.id);
 
-      const tripUsers = [];
+    const tripUserIds = tripObjects.map(item => item.user_id);
 
-      tripObjects.forEach(item => {
-        tripUsers.push(item.user_id);
-      });
+    const result = {
+      ...trip,
+      users: tripUserIds
+    };
 
-      console.log("TRIP USERS: ", tripUsers);
-      console.log("TRIP: ", trip);
-
-      const result = {
-        ...trip,
-        users: tripUsers
-      };
-
-      res.status(202).json(result);
-    }
+    res.status(202).json(result);
   } catch (err) {
     res.status(500).json({ message: "something went wrong" });
   }
 });
 
 //GET TRIPS BY USER ID
-router.get("/user/:id", restricted, async (req, res) => {
-  try {
-    const user = await Users.findById(req.params.id);
-
-    if (user) {
+router.get(
+  "/user/:id",
+  restricted,
+  validateId.validateUserId,
+  async (req, res) => {
+    try {
       const userTrips = await TripUsers.findUserTrips(req.params.id);
 
       if (userTrips.length) {
         res.status(202).json(userTrips);
       } else {
-        res.status(404).json({ message: "No trips found for given user id" });
+        res.status(404).json({ message: "No trips found for this user" });
       }
-    } else {
-      res.status(404).json({ message: "Could not find user with provided id" });
+    } catch (err) {
+      res.status(500).json({ error: "something went wrong" });
     }
-  } catch (err) {
-    res.status(500).json(err);
   }
-});
+);
 
 //POST TRIP
 router.post("/", restricted, async (req, res) => {
