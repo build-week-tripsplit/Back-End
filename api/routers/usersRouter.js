@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
+const verifyPassword = require("../../customMiddleware/verifyPassword");
+const validateId = require("../../customMiddleware/validateId");
 
 //GET USER BY DYNAMIC QUERY FILTER
 //GET TO "/" WILL DISPLAY ALL USERS
@@ -9,9 +11,7 @@ const restricted = require("../../customMiddleware/restricted-middleware");
 router.get("/", restricted, (req, res) => {
   if (!Object.keys(req.query).length) {
     Users.find()
-      .then(users => {
-        res.status(200).json(users);
-      })
+      .then(users => res.status(200).json(users))
       .catch(err => res.status(500).json(err));
   } else {
     Users.find(req.query)
@@ -28,23 +28,27 @@ router.get("/", restricted, (req, res) => {
   }
 });
 
-router.delete("/:id", restricted, async (req, res) => {
-  const id = req.params.id;
-  console.log({ id });
-  try {
-    const user = await Users.find({ id });
-    console.log(user);
-    if (user.length) {
-      Users.remove({ id })
-        .then(removed => res.status(204).end())
-        .catch(err => res.status(500).json(err));
-      res.status(204).end();
-    } else {
-      res.status(400).json({ message: "user with given id does not exist" });
+//DELETE USER BY ID
+router.delete(
+  "/:id",
+  restricted,
+  validateId,
+  verifyPassword,
+  async (req, res) => {
+    const id = req.params.id;
+    try {
+      const user = await Users.find({ id });
+      if (user.length) {
+        Users.remove({ id })
+          .then(() => res.status(204).end())
+          .catch(err => res.status(500).json(err));
+      } else {
+        res.status(400).json({ message: "user with given id does not exist" });
+      }
+    } catch (err) {
+      res.status(500).json(err);
     }
-  } catch (err) {
-    res.status(500).json(err);
   }
-});
+);
 
 module.exports = router;
