@@ -4,13 +4,16 @@ const bcrypt = require("bcryptjs");
 module.exports = async (req, res, next) => {
   const password = req.body.password;
   const id = req.params.id;
+  const username = req.body.username;
 
   if (!password) {
     res.status(400).json({ error: "Please provide a password" });
   }
 
   try {
-    const user = await Users.find({ id }).first();
+    const user = id
+      ? await Users.find({ id }).first()
+      : await Users.find({ username }).first();
 
     if (user && bcrypt.compareSync(password, user.password)) {
       req.user = user;

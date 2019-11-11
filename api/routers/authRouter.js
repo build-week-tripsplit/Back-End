@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET || "secret";
 
 const Users = require("../helpers/users-model");
+const verifyUser = require("../../customMiddleware/verifyUser");
 
 router.post("/register", (req, res) => {
   const user = req.body;
@@ -24,34 +25,22 @@ router.post("/register", (req, res) => {
       res.status(201).json(saved);
     })
     .catch(error => {
-      res.status(500).json({ error, message: "Failed" });
+      res.status(500).json({ message: "something went wrong" });
     });
 });
 
-router.post("/login", (req, res) => {
-  let { username, password } = req.body;
-
-  Users.find({ username })
-    .first()
-    .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        const token = genToken(user);
-        res.status(200).json({
-          message: `Welcome ${user.username}!`,
-          token,
-          user_id: user.id,
-          username: user.username,
-          email: user.email,
-          first_name: user.first_name,
-          last_name: user.last_name
-        });
-      } else {
-        res.status(401).json({ message: "Invalid credentials" });
-      }
-    })
-    .catch(() => {
-      res.status(500).json({ message: "Something went wrong" });
-    });
+router.post("/login", verifyUser, (req, res) => {
+  const user = req.user;
+  const token = genToken(user);
+  res.status(200).json({
+    message: `Welcome ${user.username}!`,
+    token,
+    user_id: user.id,
+    username: user.username,
+    email: user.email,
+    first_name: user.first_name,
+    last_name: user.last_name
+  });
 });
 
 function genToken(user) {
