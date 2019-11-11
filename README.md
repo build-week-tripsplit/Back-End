@@ -466,7 +466,9 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 **`title`, `users`, and `trip_id` are REQUIRED**
 
 > `trip_id` is to let the database know which trip the expense _belongs_ to.
+
 > This endpoint will create a new `expense`, but will also create new expences for each user passed into the `users` array
+
 > The total `amount` of the expense will be divided evenly between each `user`, and this split amount will be stored for each user
 
 ```json
@@ -500,33 +502,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ---
 
-<!-- ### [POST] Trip User
-
-#### URL: https://tripsplit-backend.herokuapp.com/api/trips/user
-
-**Payload:** _an object as follows:_
-
-```json
-{
-  "trip_id": 1,
-  "user_id": 1,
-  "title": "Paris Bussiness Trip",
-  "location": "Paris, France",
-  "start_date": 1560643200,
-  "end_date": 1561248000
-}
-```
-
-Returns:
-
-```json
-
-```
-
-[Back to Top](#table-of-contents)
-
---- -->
-
 ### [PUT] Trip By ID
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/trips/:id
@@ -534,6 +509,7 @@ Returns:
 **Payload:** _an object with the properties you'd like to make changes to and the values of those changes._
 
 > `id` cannot be changed
+
 > types must reamain the same, i.e. `complete` will accept a boolean value, `title` will accept a string, etc.
 
 ```json
@@ -568,6 +544,7 @@ Returns:
 **Payload:** _an object with the properties you'd like to make changes to and the values of those changes._
 
 > `id` cannot be changed
+
 > types must reamain the same, i.e. `complete` will accept a boolean value, `title` will accept a string, etc.
 
 ```json
@@ -617,7 +594,7 @@ Returns:
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/expenses/6
 
-> id from params will select the expense object to be deleted
+> `id` from params will select the expense object to be deleted
 
 **Return:** _1 means true_
 
@@ -635,7 +612,15 @@ Returns:
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/users/6
 
-> id from params will select the user object to be deleted
+> `id` from params will select the user object to be deleted
+
+**Payload:** _an object containing the user password._
+
+```json
+{
+  "password": "someCoolPassword"
+}
+```
 
 **Return:** _There is no body returned for this. If deleting was successful, a 204 status will be received._
 
