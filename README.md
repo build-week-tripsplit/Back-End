@@ -4,6 +4,10 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 [**Product Canvas Document**](https://docs.google.com/document/d/1eoyBH13hhQFvpHTtV978ntf0xoMhakGSofl6rWgmx8g/edit?usp=sharing)
 
+[**DB Designer Layout of Database**](https://app.dbdesigner.net/designer/schema/0-untitled-9f465559-6de8-44ef-bfb3-d90f7d3faab5)
+
+[**Google Sheets Layout of Database**](https://docs.google.com/spreadsheets/d/1Q_PCqoL0SVuzhQv0U8mj4KedxZcHBSlAu46qqVez-QU/edit?usp=sharing)
+
 ---
 
 ## **API Documentation**
@@ -28,8 +32,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 | Links                                               | Endpoints                    |
 | --------------------------------------------------- | ---------------------------- |
 | [GET All Users](#get-all-users)                     | `/api/users`                 |
-| [GET User by ID](#get-user-by-id)                   | `/api/users/:id`             |
-| [GET User by Username](#get-user-by-username)       | `/api/users/getby/:username` |
+| [GET User by Property](#get-user-by-property)       | `/api/users/?property=value` |
 | [GET All Trips](#get-all-trips)                     | `/api/trips`                 |
 | [GET Trip by ID](#get-trip-by-id)                   | `/api/trips/:id`             |
 | [GET All Expenses](#get-all-expenses)               | `/api/expenses`              |
@@ -42,8 +45,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 | [PUT Expense by ID](#put-expense-by-id)             | `/api/expenses/:id`          |
 | [DELETE Trip by ID](#delete-trip-by-id)             | `/api/trips/:id`             |
 | [DELETE Expense by ID](#delete-expense-by-id)       | `/api/expenses/:id`          |
-
-<!-- | [POST Trip User](#post-trip-user)                   | `/api/trips/user`            | -->
+| [DELETE User by ID](#delete-user-by-id)             | `/api/users/:id`             |
 
 ---
 
@@ -144,13 +146,13 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ---
 
-### [GET] User by id
+### [GET] User by Property
 
-#### URL: https://tripsplit-backend.herokuapp.com/api/users/:id
+#### URL: https://tripsplit-backend.herokuapp.com/api/users/?property=value
 
-> Place the id of the user which you are requesting data for in the url parameter `:id`
+> You may search for a user/users via a query string in the URL. For example, if you want to find a user by their username you would attach `?username=bsmith` to the request URL. If you want to find a user by their id `?id=23`. Queries may be for any user property.
 
-**Return:** _the user object._
+**Return:** _the user object, if only one user meets the query condition. An array of users if multiple users meet the condition._
 
 ```json
 {
@@ -158,29 +160,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   "username": "user1",
   "password": "hashedPassword",
   "email": "user1@gmail.com",
-  "first_name": "Bob",
-  "last_name": "Smith"
-}
-```
-
-[Back to Top](#table-of-contents)
-
----
-
-### [GET] User by Username
-
-#### URL: https://tripsplit-backend.herokuapp.com/api/users/getby/:username
-
-> Place the username of the user which you are requesting data for in the url parameter `:username`
-
-**Return:** _the user object._
-
-```json
-{
-  "id": 1,
-  "username": "user1",
-  "email": "user1@gmail.com",
-  "password": "hashedPassword",
   "first_name": "Bob",
   "last_name": "Smith"
 }
@@ -647,6 +626,18 @@ Returns:
   "removed": 1
 }
 ```
+
+[Back to Top](#table-of-contents)
+
+---
+
+### [DELETE] User By ID
+
+#### URL: https://tripsplit-backend.herokuapp.com/api/users/6
+
+> id from params will select the user object to be deleted
+
+**Return:** _There is no body returned for this. If deleting was successful, a 204 status will be received._
 
 [Back to Top](#table-of-contents)
 

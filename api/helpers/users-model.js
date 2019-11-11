@@ -1,19 +1,17 @@
 const db = require("../../data/dbConfig");
 
 module.exports = {
-  add,
   find,
-  findBy,
-  findById,
-  findByUsername
+  add,
+  remove
 };
 
-function find() {
-  return db("users").select("*");
-}
-
-function findBy(filter) {
-  return db("users").where(filter);
+function find(filter) {
+  if (!filter) {
+    return db("users");
+  } else {
+    return db("users").where(filter);
+  }
 }
 
 async function add(user) {
@@ -24,14 +22,8 @@ async function add(user) {
   return newUser;
 }
 
-function findById(id) {
+function remove(id) {
   return db("users")
-    .where({ id })
-    .first();
-}
-
-function findByUsername(username) {
-  return db("users")
-    .where({ username })
-    .first();
+    .where(id)
+    .del();
 }
