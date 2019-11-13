@@ -33,3 +33,7 @@ MySQL Workbench is a free GUI for managing your db's https://www.mysql.com/produ
 - create PUT endpoint for users
 - create PUT endpoint for expense that automatically updates the expense users amounts
 - DELETE user from an expense adjust the expense users amount
+
+* unify all endpoints to be used the same way
+* take logic out of the model, only use it in the router
+* make new migration to delete trip_users columns that repeat

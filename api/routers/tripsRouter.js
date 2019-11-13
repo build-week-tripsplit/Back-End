@@ -20,13 +20,15 @@ router.get("/:id", restricted, validateId.validateTripId, async (req, res) => {
   try {
     const trip = req.trip;
 
-    const tripObjects = await TripUsers.findByTripId(trip.id);
+    const usersArray = await TripUsers.findUsersByTripId(trip.id);
 
-    const tripUserIds = tripObjects.map(item => item.user_id);
+    // const tripObjects = await TripUsers.findByTripId(trip.id);
+
+    // const tripUserIds = tripObjects.map(item => item.user_id);
 
     const result = {
       ...trip,
-      users: tripUserIds
+      users: usersArray
     };
 
     res.status(202).json(result);
@@ -65,9 +67,6 @@ router.post("/", restricted, async (req, res) => {
   const end_date = trip.end_date;
   const usersArray = req.body.users;
 
-  console.log("REQUEST: ", req.body);
-  console.log("trip: ", trip);
-
   if (!trip.title || !usersArray) {
     res.status(500).json({
       message: "Must include trip title, and users array"
@@ -76,11 +75,9 @@ router.post("/", restricted, async (req, res) => {
 
   Trips.add(trip)
     .then(saved => {
-      console.log(" got here");
       //change to saved.id for postgres-------------------------------->
       const trip_id = saved.id;
 
-      console.log("added trip");
       usersArray.forEach(user => {
         TripUsers.add(
           trip_id,

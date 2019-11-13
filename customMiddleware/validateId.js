@@ -10,7 +10,7 @@ async function validateUserId(req, res, next) {
   const id = req.params.id;
 
   try {
-    const user = await Users.find({ id }).first();
+    const user = await Users.findById(id).first();
 
     if (user) {
       req.user = user;
