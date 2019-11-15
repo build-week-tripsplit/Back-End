@@ -19,7 +19,9 @@ async function validateUserId(req, res, next) {
       res.status(400).json({ error: "user with that id does not exist" });
     }
   } catch (err) {
-    res.status(500).json({ error: "something went wrong" });
+    res
+      .status(500)
+      .json({ error: err.toString(), message: "something went wrong" });
   }
 }
 
@@ -36,6 +38,8 @@ async function validateTripId(req, res, next) {
       res.status(400).json({ error: "trip with that id does not exist" });
     }
   } catch (err) {
-    res.status(500).json({ error: "something went wrong" });
+    res
+      .status(500)
+      .json({ error: err.toString(), message: "something went wrong" });
   }
 }

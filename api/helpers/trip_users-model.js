@@ -23,24 +23,11 @@ function findUsersByTripId(trip_id) {
     .select("username", "email");
 }
 
-async function add(
-  trip_id,
-  user_id,
-  title,
-  description,
-  location,
-  start_date,
-  end_date
-) {
+async function add(trip_id, user_id) {
   const [newTrip] = await db("trip_users")
     .insert({
       trip_id,
-      user_id,
-      title,
-      description,
-      location,
-      start_date,
-      end_date
+      user_id
     })
     .returning("*");
 

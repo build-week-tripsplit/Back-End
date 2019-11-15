@@ -6,7 +6,8 @@ const tripData = [
     location: "Paris, France",
     start_date: "2019-07-15",
     end_date: "2019-07-20",
-    complete: true
+    complete: true,
+    created_by_user_id: 1
   },
   {
     title: "Bali Vaca!",
@@ -15,7 +16,8 @@ const tripData = [
     location: "Bali, Indonesia",
     start_date: "2019-07-20",
     end_date: "2019-07-30",
-    complete: true
+    complete: true,
+    created_by_user_id: 3
   },
   {
     title: "Family Adventure to DisneyLand",
@@ -23,7 +25,8 @@ const tripData = [
     location: "Orlando, Florida",
     start_date: "2019-08-10",
     end_date: "2019-08-14",
-    complete: true
+    complete: true,
+    created_by_user_id: 1
   },
   {
     title: "Girl's Night Out",
@@ -31,7 +34,8 @@ const tripData = [
     location: "Radius Night Club",
     start_date: "2019-08-30",
     end_date: "2019-08-31",
-    complete: true
+    complete: true,
+    created_by_user_id: 7
   },
   {
     title: "Carribean Cruise",
@@ -39,7 +43,8 @@ const tripData = [
     location: "Royal Cruiseline",
     start_date: "2019-09-10",
     end_date: "2019-09-15",
-    complete: false
+    complete: false,
+    created_by_user_id: 1
   },
   {
     title: "Konnichiwa!",
@@ -47,7 +52,8 @@ const tripData = [
     location: "Tokyo, Kyoto, Osaka",
     start_date: "2019-09-30",
     end_date: "2019-10-12",
-    complete: false
+    complete: false,
+    created_by_user_id: 1
   }
 ];
 

@@ -12,8 +12,8 @@ module.exports = async (req, res, next) => {
 
   try {
     const user = id
-      ? await Users.find({ id }).first()
-      : await Users.find({ username }).first();
+      ? await Users.findById(id)
+      : await Users.findByUsername(username);
 
     if (user && bcrypt.compareSync(password, user.password)) {
       req.user = user;

@@ -29,8 +29,7 @@ function find() {
 function findById(id) {
   return db("users")
     .where({ id })
-    .first()
-    .select("id", "username", "email", "first_name", "last_name");
+    .first();
 }
 
 function findByUsername(username) {

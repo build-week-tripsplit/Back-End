@@ -15,6 +15,6 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(401).json({ message: "No token" });
+    res.status(401).json({ message: "Please provide a token" });
   }
 };

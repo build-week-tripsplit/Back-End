@@ -5,6 +5,18 @@ const TripUsers = require("../helpers/trip_users-model");
 const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
 const validateId = require("../../customMiddleware/validateId");
+const verifyUserByToken = require("../../customMiddleware/verifyUserByToken");
+const validateUserIds = require("../../customMiddleware/validateUserIds");
+
+router.get(
+  "/test/:id",
+  restricted,
+  validateId.validateTripId,
+  verifyUserByToken,
+  (req, res) => {
+    res.status(200).json({ message: "YES" });
+  }
+);
 
 //GET ALL TRIPS
 router.get("/", restricted, (req, res) => {
@@ -58,81 +70,60 @@ router.get(
 );
 
 //POST TRIP
-router.post("/", restricted, async (req, res) => {
-  const trip = req.body.trip;
-  const title = trip.title;
-  const description = trip.description;
-  const location = trip.location;
-  const start_date = trip.start_date;
-  const end_date = trip.end_date;
-  const usersArray = req.body.users;
+router.post("/", restricted, (req, res) => {
+  const trip = req.body;
 
-  if (!trip.title || !usersArray) {
+  if (!trip.title || !trip.created_by_user_id) {
     res.status(500).json({
-      message: "Must include trip title, and users array"
+      message: "Must include trip title and created_by_user_id"
     });
   }
 
   Trips.add(trip)
-    .then(saved => {
+    .then(saved_trip => {
       //change to saved.id for postgres-------------------------------->
-      const trip_id = saved.id;
+      const trip_id = saved_trip.id;
 
-      usersArray.forEach(user => {
-        TripUsers.add(
-          trip_id,
-          user,
-          title,
-          description,
-          location,
-          start_date,
-          end_date
-        )
-          .then(saved => {
-            console.log(saved);
+      TripUsers.add(trip_id, trip.created_by_user_id)
+        .then(saved_trip_user => {
+          res.status(201).json(saved_trip);
+        })
+        .catch(err =>
+          res.status(500).json({
+            error: err.toString(),
+            mesage: "error adding individual trips to users"
           })
-          .catch(err =>
-            res.status(500).json({
-              err,
-              message: "error adding individual trips to users"
-            })
-          );
-      });
-      res.status(201).json(saved);
+        );
     })
-    .catch(err => res.status(500).json({ err }));
+    .catch(err => res.status(500).json({ error: err.toString() }));
 });
 
 //POST USER TRIP
-// router.post("/user", restricted, (req, res) => {
-//   const trip = req.body;
+router.post("/user", restricted, (req, res) => {
+  const trip = req.body;
 
-//   TripUsers.add(trip)
-//     .then(saved => {
-//       res.json(saved);
-//     })
-//     .catch(err => res.send(err));
-// });
+  TripUsers.add(trip)
+    .then(saved => {
+      res.json(saved);
+    })
+    .catch(err => res.send(err));
+});
 
 //UPDATE TRIP BY ID
-router.put("/:id", restricted, async (req, res) => {
+router.put("/:id", restricted, validateId.validateTripId, async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
   if (changes.id) {
-    res.status(500).json({ message: "id cannot be changed" });
+    res.status(500).json({ message: "trip id cannot be changed" });
   } else {
     try {
-      const trip = await Trips.findById(id);
-
-      if (trip) {
-        const updatedTrip = await Trips.update(changes, id);
-        res.json(updatedTrip);
-      } else {
-        res.status(404).json({ message: "Could not find trip with given ID" });
-      }
+      const updatedTrip = await Trips.update(changes, id);
+      res.status(200).json(updatedTrip);
     } catch (err) {
-      res.status(500).json({ message: "Something went wrong" });
+      res
+        .status(500)
+        .json({ error: err.toString(), message: "Something went wrong" });
     }
   }
 });
@@ -158,20 +149,20 @@ router.put("/user/:userid/trip/:tripid", restricted, async (req, res) => {
 });
 
 //DELETE TRIP
-router.delete("/:id", restricted, async (req, res) => {
-  const { id } = req.params;
+router.delete(
+  "/:id",
+  restricted,
+  validateId.validateTripId,
+  verifyUserByToken,
+  async (req, res) => {
+    try {
+      Trips.remove(req.trip.id);
 
-  try {
-    const deleted = await Trips.remove(id);
-
-    if (deleted) {
-      res.json({ removed: deleted });
-    } else {
-      res.status(404).json({ message: "Could not find trip with given ID" });
+      res.status(204).end();
+    } catch (err) {
+      res.status(500).json({ message: "Something went wrong" });
     }
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
   }
-});
+);
 
 module.exports = router;
