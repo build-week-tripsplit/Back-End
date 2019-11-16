@@ -9,13 +9,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users").select(
-    "id",
-    "username",
-    "email",
-    "first_name",
-    "last_name"
-  );
+  return db("users");
 }
 
 // function find(filter) {

@@ -2,8 +2,7 @@ const router = require("express").Router();
 
 const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
-const verifyUser = require("../../customMiddleware/verifyUser");
-const validateId = require("../../customMiddleware/validateId");
+const validator = require("../../customMiddleware/validator");
 
 //GET USER BY DYNAMIC QUERY FILTER
 //GET TO "/" WILL DISPLAY ALL USERS
@@ -31,15 +30,18 @@ const validateId = require("../../customMiddleware/validateId");
 //GET ALL USERS
 router.get("/", restricted, async (req, res) => {
   try {
-    const users = await Users.find();
+    let users = await Users.find();
+    users.forEach(user => delete user.password);
     res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ error: "something went wrong" });
+    res
+      .status(500)
+      .json({ error: err.toString(), message: "something went wrong" });
   }
 });
 
 //GET USER BY ID
-router.get("/:id", restricted, validateId.validateUserId, (req, res) => {
+router.get("/:id", restricted, validator.validateUserId, (req, res) => {
   const user = req.user;
   res.status(200).json(user);
 });
@@ -48,8 +50,9 @@ router.get("/:id", restricted, validateId.validateUserId, (req, res) => {
 router.delete(
   "/:id",
   restricted,
-  validateId.validateUserId,
-  verifyUser,
+  validator.validateUserId,
+  validator.validateWithPassword,
+  validator.verifyUserByToken,
   async (req, res) => {
     const id = req.params.id;
     try {

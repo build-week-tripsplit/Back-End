@@ -4,14 +4,13 @@ const Trips = require("../helpers/trips-model");
 const TripUsers = require("../helpers/trip_users-model");
 const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
-const validateId = require("../../customMiddleware/validateId");
+const validator = require("../../customMiddleware/validator");
 const verifyUserByToken = require("../../customMiddleware/verifyUserByToken");
-const validateUserIds = require("../../customMiddleware/validateUserIds");
 
 router.get(
   "/test/:id",
   restricted,
-  validateId.validateTripId,
+  validator.validateTripId,
   verifyUserByToken,
   (req, res) => {
     res.status(200).json({ message: "YES" });
@@ -28,7 +27,7 @@ router.get("/", restricted, (req, res) => {
 });
 
 //GET TRIP BY ID
-router.get("/:id", restricted, validateId.validateTripId, async (req, res) => {
+router.get("/:id", restricted, validator.validateTripId, async (req, res) => {
   try {
     const trip = req.trip;
 
@@ -53,7 +52,7 @@ router.get("/:id", restricted, validateId.validateTripId, async (req, res) => {
 router.get(
   "/user/:id",
   restricted,
-  validateId.validateUserId,
+  validator.validateUserId,
   async (req, res) => {
     try {
       const userTrips = await TripUsers.findUserTrips(req.params.id);
@@ -110,7 +109,7 @@ router.post("/user", restricted, (req, res) => {
 });
 
 //UPDATE TRIP BY ID
-router.put("/:id", restricted, validateId.validateTripId, async (req, res) => {
+router.put("/:id", restricted, validator.validateTripId, async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -152,7 +151,7 @@ router.put("/user/:userid/trip/:tripid", restricted, async (req, res) => {
 router.delete(
   "/:id",
   restricted,
-  validateId.validateTripId,
+  validator.validateTripId,
   verifyUserByToken,
   async (req, res) => {
     try {

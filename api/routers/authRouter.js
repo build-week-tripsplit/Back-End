@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET || "secret";
 
 const Users = require("../helpers/users-model");
-const verifyUser = require("../../customMiddleware/verifyUser");
+const validator = require("../../customMiddleware/validator");
 
 router.post("/register", (req, res) => {
   const user = req.body;
@@ -29,17 +29,13 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", verifyUser, (req, res) => {
+router.post("/login", validator.validateWithPassword, (req, res) => {
   const user = req.user;
+  delete user.password;
   const token = genToken(user);
   res.status(200).json({
-    message: `Welcome ${user.username}!`,
     token,
-    user_id: user.id,
-    username: user.username,
-    email: user.email,
-    first_name: user.first_name,
-    last_name: user.last_name
+    ...user
   });
 });
 
