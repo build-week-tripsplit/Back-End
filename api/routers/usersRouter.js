@@ -24,6 +24,17 @@ router.get("/:id", restricted, validator.validateUserId, (req, res) => {
   res.status(200).json(user);
 });
 
+router.get(
+  "/username/:username",
+  restricted,
+  validator.validateUsername,
+  (req, res) => {
+    const user = req.user;
+    delete user.password;
+    res.status(200).json(user);
+  }
+);
+
 //UPDATE USER BY ID
 router.put(
   "/:id",

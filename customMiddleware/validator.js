@@ -4,6 +4,7 @@ const Trips = require("../api/helpers/trips-model");
 
 module.exports = {
   validateUserId,
+  validateUsername,
   validateWithPassword,
   verifyUserByToken,
   validateTripId
@@ -11,16 +12,37 @@ module.exports = {
 
 //================================= USER VALIDATION MIDDLEWARE =================================//
 async function validateUserId(req, res, next) {
-  const id = req.params.id;
+  const { id } = req.params;
 
   try {
-    const user = await Users.findById(id).first();
+    const user = await Users.findById(id);
 
     if (user) {
       req.user = user;
       next();
     } else {
-      res.status(400).json({ error: "user with that id does not exist" });
+      res.status(404).json({ message: "user with that id does not exist" });
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: err.toString(), message: "something went wrong" });
+  }
+}
+
+async function validateUsername(req, res, next) {
+  const { username } = req.params;
+
+  try {
+    const user = await Users.findByUsername(username);
+
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      res
+        .status(404)
+        .json({ message: "user with that username does not exist" });
     }
   } catch (err) {
     res
@@ -30,9 +52,8 @@ async function validateUserId(req, res, next) {
 }
 
 async function validateWithPassword(req, res, next) {
-  const password = req.body.password;
-  const id = req.params.id;
-  const username = req.body.username;
+  const { username, password } = req.body;
+  const { id } = req.params;
 
   if (!password) {
     res.status(400).json({ error: "Please provide a password" });
