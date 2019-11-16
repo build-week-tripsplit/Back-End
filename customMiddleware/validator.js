@@ -4,11 +4,12 @@ const Trips = require("../api/helpers/trips-model");
 
 module.exports = {
   validateUserId,
-  validateTripId,
   validateWithPassword,
-  verifyUserByToken
+  verifyUserByToken,
+  validateTripId
 };
 
+//================================= USER VALIDATION MIDDLEWARE =================================//
 async function validateUserId(req, res, next) {
   const id = req.params.id;
 
@@ -20,25 +21,6 @@ async function validateUserId(req, res, next) {
       next();
     } else {
       res.status(400).json({ error: "user with that id does not exist" });
-    }
-  } catch (err) {
-    res
-      .status(500)
-      .json({ error: err.toString(), message: "something went wrong" });
-  }
-}
-
-async function validateTripId(req, res, next) {
-  const id = req.params.id;
-
-  try {
-    const trip = await Trips.findById(id);
-
-    if (trip) {
-      req.trip = trip;
-      next();
-    } else {
-      res.status(400).json({ error: "trip with that id does not exist" });
     }
   } catch (err) {
     res
@@ -81,5 +63,26 @@ async function verifyUserByToken(req, res, next) {
     next();
   } else {
     res.status(401).json({ error: "user id and user token do not match" });
+  }
+}
+
+//================================= TRIP VALIDATION MIDDLEWARE =================================//
+
+async function validateTripId(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    const trip = await Trips.findById(id);
+
+    if (trip) {
+      req.trip = trip;
+      next();
+    } else {
+      res.status(400).json({ error: "trip with that id does not exist" });
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: err.toString(), message: "something went wrong" });
   }
 }

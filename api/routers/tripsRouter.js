@@ -2,20 +2,8 @@ const router = require("express").Router();
 
 const Trips = require("../helpers/trips-model");
 const TripUsers = require("../helpers/trip_users-model");
-const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
 const validator = require("../../customMiddleware/validator");
-const verifyUserByToken = require("../../customMiddleware/verifyUserByToken");
-
-router.get(
-  "/test/:id",
-  restricted,
-  validator.validateTripId,
-  verifyUserByToken,
-  (req, res) => {
-    res.status(200).json({ message: "YES" });
-  }
-);
 
 //GET ALL TRIPS
 router.get("/", restricted, (req, res) => {
@@ -147,7 +135,7 @@ router.delete(
   "/:id",
   restricted,
   validator.validateTripId,
-  verifyUserByToken,
+  validator.verifyUserByToken,
   async (req, res) => {
     try {
       Trips.remove(req.trip.id);

@@ -24,6 +24,7 @@ router.get("/:id", restricted, validator.validateUserId, (req, res) => {
   res.status(200).json(user);
 });
 
+//UPDATE USER BY ID
 router.put(
   "/:id",
   restricted,
