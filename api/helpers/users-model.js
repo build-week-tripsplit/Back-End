@@ -5,20 +5,13 @@ module.exports = {
   findById,
   findByUsername,
   add,
+  update,
   remove
 };
 
 function find() {
   return db("users");
 }
-
-// function find(filter) {
-//   if (!filter) {
-//     return db("users");
-//   } else {
-//     return db("users").where(filter);
-//   }
-// }
 
 function findById(id) {
   return db("users")
@@ -38,6 +31,15 @@ async function add(user) {
     .returning("*");
 
   return newUser;
+}
+
+async function update(changes, id) {
+  const [updatedUser] = await db("users")
+    .where({ id })
+    .update(changes)
+    .returning("*");
+
+  return updatedUser;
 }
 
 function remove(id) {

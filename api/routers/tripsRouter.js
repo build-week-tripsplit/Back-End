@@ -33,10 +33,6 @@ router.get("/:id", restricted, validator.validateTripId, async (req, res) => {
 
     const usersArray = await TripUsers.findUsersByTripId(trip.id);
 
-    // const tripObjects = await TripUsers.findByTripId(trip.id);
-
-    // const tripUserIds = tripObjects.map(item => item.user_id);
-
     const result = {
       ...trip,
       users: usersArray
@@ -80,7 +76,6 @@ router.post("/", restricted, (req, res) => {
 
   Trips.add(trip)
     .then(saved_trip => {
-      //change to saved.id for postgres-------------------------------->
       const trip_id = saved_trip.id;
 
       TripUsers.add(trip_id, trip.created_by_user_id)
@@ -114,7 +109,7 @@ router.put("/:id", restricted, validator.validateTripId, async (req, res) => {
   const changes = req.body;
 
   if (changes.id) {
-    res.status(500).json({ message: "trip id cannot be changed" });
+    res.status(400).json({ message: "trip id cannot be changed" });
   } else {
     try {
       const updatedTrip = await Trips.update(changes, id);

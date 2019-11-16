@@ -4,29 +4,6 @@ const Users = require("../helpers/users-model");
 const restricted = require("../../customMiddleware/restricted-middleware");
 const validator = require("../../customMiddleware/validator");
 
-//GET USER BY DYNAMIC QUERY FILTER
-//GET TO "/" WILL DISPLAY ALL USERS
-//GET WITH A QUERY WILL DISPLAY USERS THAT MATCH THE QUERY
-// router.get("/", restricted, (req, res) => {
-//   if (!Object.keys(req.query).length) {
-//     Users.find()
-//       .then(users => res.status(200).json(users))
-//       .catch(err => res.status(500).json(err));
-//   } else {
-//     Users.find(req.query)
-//       .then(results => {
-//         if (!results.length) {
-//           res.status(400).json({ message: "No user(s) found" });
-//         } else if (results.length === 1) {
-//           res.status(200).json(results[0]);
-//         } else {
-//           res.status(200).json(results);
-//         }
-//       })
-//       .catch(err => res.status(500).json(err));
-//   }
-// });
-
 //GET ALL USERS
 router.get("/", restricted, async (req, res) => {
   try {
@@ -43,8 +20,34 @@ router.get("/", restricted, async (req, res) => {
 //GET USER BY ID
 router.get("/:id", restricted, validator.validateUserId, (req, res) => {
   const user = req.user;
+  delete user.password;
   res.status(200).json(user);
 });
+
+router.put(
+  "/:id",
+  restricted,
+  validator.validateUserId,
+  validator.verifyUserByToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+
+    if (changes.id) {
+      res.status(400).json({ message: "user id cannot be changed" });
+    } else {
+      try {
+        const updatedUser = await Users.update(changes, id);
+        delete updatedUser.password;
+        res.status(200).json(updatedUser);
+      } catch (err) {
+        res
+          .status(500)
+          .json({ error: err.toString(), message: "Something went wrong" });
+      }
+    }
+  }
+);
 
 //DELETE USER BY ID
 router.delete(
