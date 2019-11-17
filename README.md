@@ -1,6 +1,8 @@
 # Trip Split - Back-End
 
-Instead of scrambling at the end of a trip or a dinner to figure out who pays for what, Trip Split keeps things simple. Everything is divided equally and there’s no more guessing game involved. No need to whip out the calculator on your iPhone after an uber ride and you can plan out trips in advance so you’re always on budget.
+**PITCH:**
+
+Instead of scrambling at the end of a trip or a dinner to figure out who pays for what, Trip Split keeps things simple. Everything is divided equally and there’s no more guessing game involved. No need to whip out the calculator on your iPhone after an uber ride, and you can plan out trips in advance so you’re always on budget.
 
 [**Product Canvas Document**](https://docs.google.com/document/d/1eoyBH13hhQFvpHTtV978ntf0xoMhakGSofl6rWgmx8g/edit?usp=sharing)
 
@@ -18,16 +20,16 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ### **Table of Contents**
 
-#### NON-PROTECTED ENDPOINTS
+#### NON-AUTH ENDPOINTS
 
 | Links                                   | Endpoints            |
 | --------------------------------------- | -------------------- |
 | [POST Registration](#post-registration) | `/api/auth/register` |
 | [POST Login](#post-login)               | `/api/auth/login`    |
 
-#### PROTECTED ENDPOINTS
+#### AUTH ENDPOINTS
 
-> **All EndPoints listed below require a `token`! Send an `authorizatoin header` with the token provided upon login.**
+> **All EndPoints listed below require a `token`! Send an `authorizatoin header` with the token provided upon register/login.**
 
 | Links                                               | Endpoints                    |
 | --------------------------------------------------- | ---------------------------- |
@@ -55,7 +57,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 **Payload:** _an object with the following credentials:_
 
-> **Required:** `username`, `email`, & `password`
+> **Required:** `username`, `email`, & `password`. </br> > `first_name` and `last_name` properties will be `null` if not provided with values.
 
 ```json
 {
@@ -73,7 +75,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 {
   "id": 1,
   "username": "newUsername",
-  "password": "hashedPassword",
   "email": "johndoe@gmail.com",
   "first_name": "John",
   "last_name": "Doe"

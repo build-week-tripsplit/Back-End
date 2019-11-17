@@ -24,6 +24,7 @@ router.get("/:id", restricted, validator.validateUserId, (req, res) => {
   res.status(200).json(user);
 });
 
+//GET USER BY USERNAME
 router.get(
   "/username/:username",
   restricted,

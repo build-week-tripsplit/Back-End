@@ -7,26 +7,34 @@ const secret = process.env.JWT_SECRET || "secret";
 
 const Users = require("../helpers/users-model");
 const validator = require("../../customMiddleware/validator");
+const usersChecker = require("../checkers/usersChecker");
 
 router.post("/register", (req, res) => {
   const user = req.body;
 
-  if (!user.username || !user.password || !user.email) {
-    res.status(500).json({
-      message: "Registration requires a username, email, and password."
-    });
+  // if (!user.username || !user.password || !user.email) {
+  //   res.status(500).json({
+  //     message: "Registration requires a username, email, and password."
+  //   });
+  // }
+
+  const status = usersChecker.checkUser(user);
+
+  if (!status.isSuccessful) {
+    res.status(400).json(status);
+  } else {
+    const hash = bcrypt.hashSync(user.password, 10);
+    user.password = hash;
+
+    Users.add(user)
+      .then(saved => {
+        delete saved.password;
+        res.status(201).json(saved);
+      })
+      .catch(err => {
+        res.status(500).json({ error: err.toString(), detail: err.detail });
+      });
   }
-
-  const hash = bcrypt.hashSync(user.password, 10);
-  user.password = hash;
-
-  Users.add(user)
-    .then(saved => {
-      res.status(201).json(saved);
-    })
-    .catch(error => {
-      res.status(500).json({ message: "something went wrong" });
-    });
 });
 
 router.post("/login", validator.validateWithPassword, (req, res) => {
