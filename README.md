@@ -69,15 +69,18 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 }
 ```
 
-**Return:** _an object with the user credentials provided in the request body_
+**Return:** _an object with the user credentials provided in the request body, along with an auth token_
 
 ```json
 {
-  "id": 1,
-  "username": "newUsername",
-  "email": "johndoe@gmail.com",
-  "first_name": "John",
-  "last_name": "Doe"
+  "user": {
+    "id": 1,
+    "username": "newUsername",
+    "email": "johndoe@gmail.com",
+    "first_name": "John",
+    "last_name": "Doe"
+    },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6Im5ld1VzZXI0IiwiaWF0IjoxNTY3MTAwNTAzLCJleHAiOjE1NjcxODY5MDN9.BrCNULMh7pLMFGzY6HyX5CK_tA7ek8bUQSFiWkrPBQQ"
 }
 ```
 
