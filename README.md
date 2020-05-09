@@ -130,7 +130,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   {
     "id": 1,
     "username": "user1",
-    "password": "hashedPassword",
     "email": "user1@gmail.com",
     "first_name": "Bob",
     "last_name": "Smith"
@@ -138,7 +137,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   {
     "id": 2,
     "username": "user2",
-    "password": "hashedPassword",
     "email": "user2@gmail.com",
     "first_name": null,
     "last_name": null
@@ -152,17 +150,17 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ### [GET] User by Property
 
-#### URL: https://tripsplit-backend.herokuapp.com/api/users/?property=value
+#### URL-ID: https://tripsplit-backend.herokuapp.com/api/users/:id
+#### URL-Username: https://tripsplit-backend.herokuapp.com/api/users/username/:username
 
-> You may search for a user/users via a query string in the URL. For example, if you want to find a user by their username you would attach `?username=bsmith` to the request URL. If you want to find a user by their id `?id=23`. Queries may be for any user property.
+> You may search for a user by ID or username
 
-**Return:** _the user object, if only one user meets the query condition. An array of users if multiple users meet the condition._
+**Return:** _the user object_
 
 ```json
 {
   "id": 1,
   "username": "user1",
-  "password": "hashedPassword",
   "email": "user1@gmail.com",
   "first_name": "Bob",
   "last_name": "Smith"
