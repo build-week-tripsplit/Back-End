@@ -13,7 +13,7 @@ router.get("/", restricted, async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .json({ error: err.toString(), message: "something went wrong" });
+      .json({ error: err.toString(), message: "error processing request" });
   }
 });
 
@@ -76,7 +76,7 @@ router.delete(
         .then(() => res.status(204).end())
         .catch(err => res.status(500).json(err));
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json({error: err.toString(), message: "Something went wrong"});
     }
   }
 );
