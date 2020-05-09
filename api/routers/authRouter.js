@@ -12,12 +12,6 @@ const usersChecker = require("../checkers/usersChecker");
 router.post("/register", (req, res) => {
   const user = req.body;
 
-  // if (!user.username || !user.password || !user.email) {
-  //   res.status(500).json({
-  //     message: "Registration requires a username, email, and password."
-  //   });
-  // }
-
   const status = usersChecker.checkUser(user);
 
   if (!status.isSuccessful) {
@@ -29,7 +23,8 @@ router.post("/register", (req, res) => {
     Users.add(user)
       .then(saved => {
         delete saved.password;
-        res.status(201).json(saved);
+        const token = genToken(saved)
+        res.status(201).json({user: saved, token});
       })
       .catch(err => {
         res.status(500).json({ error: err.toString(), detail: err.detail });
