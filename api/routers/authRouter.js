@@ -6,52 +6,40 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET || "secret";
 
 const Users = require("../helpers/users-model");
+const validator = require("../../customMiddleware/validator");
+const usersChecker = require("../checkers/usersChecker");
 
 router.post("/register", (req, res) => {
   const user = req.body;
 
-  if (!user.username || !user.password || !user.email) {
-    res.status(500).json({
-      message: "Registration requires a username, email, and password."
-    });
+  const status = usersChecker.checkUser(user);
+
+  if (!status.isSuccessful) {
+    res.status(400).json(status);
+  } else {
+    const hash = bcrypt.hashSync(user.password, 10);
+    user.password = hash;
+
+    Users.add(user)
+      .then(saved => {
+        delete saved.password;
+        const token = genToken(saved)
+        res.status(201).json({user: saved, token});
+      })
+      .catch(err => {
+        res.status(500).json({ error: err.toString(), detail: err.detail });
+      });
   }
-
-  const hash = bcrypt.hashSync(user.password, 10);
-  user.password = hash;
-
-  Users.add(user)
-    .then(saved => {
-      res.status(201).json(saved);
-    })
-    .catch(error => {
-      res.status(500).json({ error, message: "Failed" });
-    });
 });
 
-router.post("/login", (req, res) => {
-  let { username, password } = req.body;
-
-  Users.findBy({ username })
-    .first()
-    .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        const token = genToken(user);
-        res.status(200).json({
-          message: `Welcome ${user.username}!`,
-          token,
-          user_id: user.id,
-          username: user.username,
-          email: user.email,
-          first_name: user.first_name,
-          last_name: user.last_name
-        });
-      } else {
-        res.status(401).json({ message: "Invalid credentials" });
-      }
-    })
-    .catch(() => {
-      res.status(500).json({ message: "Something went wrong" });
-    });
+router.post("/login", validator.validateWithPassword, (req, res) => {
+  const user = req.user;
+  delete user.password;
+  const token = genToken(user);
+  res.status(200).json({
+    token,
+    ...user
+  });
 });
 
 function genToken(user) {

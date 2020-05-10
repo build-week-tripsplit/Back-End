@@ -130,13 +130,7 @@ const expenseData = [
 ];
 
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
-  return (
-    knex("expenses")
-      //.truncate()
-      .then(() => {
-        // Inserts seed entries
-        return knex("expenses").insert(expenseData);
-      })
-  );
+  return knex("expenses").then(() => {
+    return knex("expenses").insert(expenseData);
+  });
 };

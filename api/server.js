@@ -21,7 +21,9 @@ server.use("/api/trips", tripsRouter);
 server.use("/api/expenses", expensesRouter);
 
 server.get("/", (_req, res) => {
-  res.send("Server is up and running");
+  res.send(
+    '<h1>Welcome to the TripSplit API!</h1><h3>For documentation <a href="https://github.com/build-week-tripsplit/Back-End">click here</a>.</h3><p>This API was made by <a href="https://github.com/kmcknight1">Katie McKnight</a> with ❤️</p>'
+  );
 });
 
 module.exports = server;

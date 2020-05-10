@@ -1,8 +1,14 @@
 # Trip Split - Back-End
 
-Instead of scrambling at the end of a trip or a dinner to figure out who pays for what, Trip Split keeps things simple. Everything is divided equally and there’s no more guessing game involved. No need to whip out the calculator on your iPhone after an uber ride and you can plan out trips in advance so you’re always on budget.
+**PITCH:**
+
+Instead of scrambling at the end of a trip or a dinner to figure out who pays for what, Trip Split keeps things simple. Everything is divided equally and there’s no more guessing game involved. No need to whip out the calculator on your iPhone after an uber ride, and you can plan out trips in advance so you’re always on budget.
 
 [**Product Canvas Document**](https://docs.google.com/document/d/1eoyBH13hhQFvpHTtV978ntf0xoMhakGSofl6rWgmx8g/edit?usp=sharing)
+
+[**DB Designer Layout of Database**](https://app.dbdesigner.net/designer/schema/0-untitled-9f465559-6de8-44ef-bfb3-d90f7d3faab5)
+
+[**Google Sheets Layout of Database**](https://docs.google.com/spreadsheets/d/1Q_PCqoL0SVuzhQv0U8mj4KedxZcHBSlAu46qqVez-QU/edit?usp=sharing)
 
 ---
 
@@ -14,22 +20,21 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ### **Table of Contents**
 
-#### NON-PROTECTED ENDPOINTS
+#### NON-AUTH ENDPOINTS
 
 | Links                                   | Endpoints            |
 | --------------------------------------- | -------------------- |
 | [POST Registration](#post-registration) | `/api/auth/register` |
 | [POST Login](#post-login)               | `/api/auth/login`    |
 
-#### PROTECTED ENDPOINTS
+#### AUTH ENDPOINTS
 
-> **All EndPoints listed below require a `token`! Send an `authorizatoin header` with the token provided upon login.**
+> **All EndPoints listed below require a `token`! Send an `authorizatoin header` with the token provided upon register/login.**
 
 | Links                                               | Endpoints                    |
 | --------------------------------------------------- | ---------------------------- |
 | [GET All Users](#get-all-users)                     | `/api/users`                 |
-| [GET User by ID](#get-user-by-id)                   | `/api/users/:id`             |
-| [GET User by Username](#get-user-by-username)       | `/api/users/getby/:username` |
+| [GET User by Property](#get-user-by-property)       | `/api/users/?property=value` |
 | [GET All Trips](#get-all-trips)                     | `/api/trips`                 |
 | [GET Trip by ID](#get-trip-by-id)                   | `/api/trips/:id`             |
 | [GET All Expenses](#get-all-expenses)               | `/api/expenses`              |
@@ -42,8 +47,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 | [PUT Expense by ID](#put-expense-by-id)             | `/api/expenses/:id`          |
 | [DELETE Trip by ID](#delete-trip-by-id)             | `/api/trips/:id`             |
 | [DELETE Expense by ID](#delete-expense-by-id)       | `/api/expenses/:id`          |
-
-<!-- | [POST Trip User](#post-trip-user)                   | `/api/trips/user`            | -->
+| [DELETE User by ID](#delete-user-by-id)             | `/api/users/:id`             |
 
 ---
 
@@ -53,7 +57,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 **Payload:** _an object with the following credentials:_
 
-> **Required:** `username`, `email`, & `password`
+> **Required:** `username`, `email`, & `password`. </br> > `first_name` and `last_name` properties will be `null` if not provided with values.
 
 ```json
 {
@@ -65,16 +69,18 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 }
 ```
 
-**Return:** _an object with the user credentials provided in the request body_
+**Return:** _an object with the user credentials provided in the request body, along with an auth token_
 
 ```json
 {
-  "id": 1,
-  "username": "newUsername",
-  "password": "hashedPassword",
-  "email": "johndoe@gmail.com",
-  "first_name": "John",
-  "last_name": "Doe"
+  "user": {
+    "id": 1,
+    "username": "newUsername",
+    "email": "johndoe@gmail.com",
+    "first_name": "John",
+    "last_name": "Doe"
+    },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6Im5ld1VzZXI0IiwiaWF0IjoxNTY3MTAwNTAzLCJleHAiOjE1NjcxODY5MDN9.BrCNULMh7pLMFGzY6HyX5CK_tA7ek8bUQSFiWkrPBQQ"
 }
 ```
 
@@ -124,7 +130,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   {
     "id": 1,
     "username": "user1",
-    "password": "hashedPassword",
     "email": "user1@gmail.com",
     "first_name": "Bob",
     "last_name": "Smith"
@@ -132,7 +137,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   {
     "id": 2,
     "username": "user2",
-    "password": "hashedPassword",
     "email": "user2@gmail.com",
     "first_name": null,
     "last_name": null
@@ -144,43 +148,20 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ---
 
-### [GET] User by id
+### [GET] User by Property
 
-#### URL: https://tripsplit-backend.herokuapp.com/api/users/:id
+#### URL-ID: https://tripsplit-backend.herokuapp.com/api/users/:id
+#### URL-Username: https://tripsplit-backend.herokuapp.com/api/users/username/:username
 
-> Place the id of the user which you are requesting data for in the url parameter `:id`
+> You may search for a user by ID or username
 
-**Return:** _the user object._
-
-```json
-{
-  "id": 1,
-  "username": "user1",
-  "password": "hashedPassword",
-  "email": "user1@gmail.com",
-  "first_name": "Bob",
-  "last_name": "Smith"
-}
-```
-
-[Back to Top](#table-of-contents)
-
----
-
-### [GET] User by Username
-
-#### URL: https://tripsplit-backend.herokuapp.com/api/users/getby/:username
-
-> Place the username of the user which you are requesting data for in the url parameter `:username`
-
-**Return:** _the user object._
+**Return:** _the user object_
 
 ```json
 {
   "id": 1,
   "username": "user1",
   "email": "user1@gmail.com",
-  "password": "hashedPassword",
   "first_name": "Bob",
   "last_name": "Smith"
 }
@@ -205,7 +186,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
     "location": "Paris, France",
     "start_date": "2019-07-15T05:00:00.000Z",
     "end_date": "2019-07-20T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 1
   },
   {
     "id": 2,
@@ -214,7 +196,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
     "location": "Bali, Indonesia",
     "start_date": "2019-07-20T05:00:00.000Z",
     "end_date": "2019-07-30T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 3
   },
   {
     "id": 3,
@@ -223,7 +206,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
     "location": "Orlando, Florida",
     "start_date": "2019-08-10T05:00:00.000Z",
     "end_date": "2019-08-14T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 7
   }
 ];
 ```
@@ -236,7 +220,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/trips/:id
 
-**Return:** _the trip object along with an array of ids for the users going on that trip._
+**Return:** _the trip object along with an array of user objects for those going on that trip._
 
 ```json
 {
@@ -247,7 +231,17 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   "start_date": "2019-07-20T05:00:00.000Z",
   "end_date": "2019-07-30T05:00:00.000Z",
   "complete": true,
-  "users": [3, 4, 5]
+  "created_by_user_id": 1,
+  "users": [
+    {
+      "username": "JohnDoe",
+      "email": "johndoe@email.com"
+    },
+    {
+      "username": "JaneDoe",
+      "email": "janedoe@email.com"
+    }
+  ]
 }
 ```
 
@@ -334,26 +328,24 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 ```json
 [
   {
-    "id": 2,
-    "trip_id": 1,
-    "user_id": 2,
+    "trip_id": 2,
     "title": "Paris Business Trip",
     "description": "Going to Paris for business meetings and week-long conferences. Representing our local branch of the company.",
     "location": "Paris, France",
     "start_date": "2019-07-15T05:00:00.000Z",
     "end_date": "2019-07-20T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 1
   },
   {
-    "id": 16,
-    "trip_id": 6,
-    "user_id": 2,
+    "trip_id": 16,
     "title": "Konnichiwa!",
     "description": "Heading to Japan! Couple's trip.",
     "location": "Tokyo, Kyoto, Osaka",
     "start_date": "2019-09-30T05:00:00.000Z",
     "end_date": "2019-10-12T05:00:00.000Z",
-    "complete": false
+    "complete": false,
+    "created_by_user_id": 1
   }
 ]
 ```
@@ -439,21 +431,15 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 **Payload:** _an object with the following:_
 
-- a property `trip` that contains the trip object of which will be inserted into the database
-- a `users` array, containing the user `id`s that are attending this trip
-
-**title & users are REQUIRED**
 
 ```json
 {
-  "trip": {
-    "title": "Test!",
-    "description": "Going on a trip to a place!",
-    "location": "Test City",
-    "start_date": "2019-09-02",
-    "end_date": "2019-09-05"
-  },
-  "users": [3, 5, 7]
+  "title": "Test!",
+  "description": "Going on a trip to a place!",
+  "location": "Test City",
+  "start_date": "2019-09-02",
+  "end_date": "2019-09-05",
+  "created_by_user_id": 1
 }
 ```
 
@@ -467,7 +453,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   "location": "Test City",
   "start_date": "2019-09-02T05:00:00.000Z",
   "end_date": "2019-09-05T05:00:00.000Z",
-  "complete": false
+  "complete": false,
+  "created_by_user_id": 1
 }
 ```
 
@@ -487,7 +474,9 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 **`title`, `users`, and `trip_id` are REQUIRED**
 
 > `trip_id` is to let the database know which trip the expense _belongs_ to.
+
 > This endpoint will create a new `expense`, but will also create new expences for each user passed into the `users` array
+
 > The total `amount` of the expense will be divided evenly between each `user`, and this split amount will be stored for each user
 
 ```json
@@ -521,33 +510,6 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 ---
 
-<!-- ### [POST] Trip User
-
-#### URL: https://tripsplit-backend.herokuapp.com/api/trips/user
-
-**Payload:** _an object as follows:_
-
-```json
-{
-  "trip_id": 1,
-  "user_id": 1,
-  "title": "Paris Bussiness Trip",
-  "location": "Paris, France",
-  "start_date": 1560643200,
-  "end_date": 1561248000
-}
-```
-
-Returns:
-
-```json
-
-```
-
-[Back to Top](#table-of-contents)
-
---- -->
-
 ### [PUT] Trip By ID
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/trips/:id
@@ -555,6 +517,7 @@ Returns:
 **Payload:** _an object with the properties you'd like to make changes to and the values of those changes._
 
 > `id` cannot be changed
+
 > types must reamain the same, i.e. `complete` will accept a boolean value, `title` will accept a string, etc.
 
 ```json
@@ -589,6 +552,7 @@ Returns:
 **Payload:** _an object with the properties you'd like to make changes to and the values of those changes._
 
 > `id` cannot be changed
+
 > types must reamain the same, i.e. `complete` will accept a boolean value, `title` will accept a string, etc.
 
 ```json
@@ -638,7 +602,7 @@ Returns:
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/expenses/6
 
-> id from params will select the expense object to be deleted
+> `id` from params will select the expense object to be deleted
 
 **Return:** _1 means true_
 
@@ -647,6 +611,26 @@ Returns:
   "removed": 1
 }
 ```
+
+[Back to Top](#table-of-contents)
+
+---
+
+### [DELETE] User By ID
+
+#### URL: https://tripsplit-backend.herokuapp.com/api/users/6
+
+> `id` from params will select the user object to be deleted
+
+**Payload:** _an object containing the user password._
+
+```json
+{
+  "password": "someCoolPassword"
+}
+```
+
+**Return:** _There is no body returned for this. If deleting was successful, a 204 status will be received._
 
 [Back to Top](#table-of-contents)
 
