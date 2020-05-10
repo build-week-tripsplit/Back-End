@@ -186,7 +186,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
     "location": "Paris, France",
     "start_date": "2019-07-15T05:00:00.000Z",
     "end_date": "2019-07-20T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 1
   },
   {
     "id": 2,
@@ -195,7 +196,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
     "location": "Bali, Indonesia",
     "start_date": "2019-07-20T05:00:00.000Z",
     "end_date": "2019-07-30T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 3
   },
   {
     "id": 3,
@@ -204,7 +206,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
     "location": "Orlando, Florida",
     "start_date": "2019-08-10T05:00:00.000Z",
     "end_date": "2019-08-14T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 7
   }
 ];
 ```
@@ -217,7 +220,7 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 #### URL: https://tripsplit-backend.herokuapp.com/api/trips/:id
 
-**Return:** _the trip object along with an array of ids for the users going on that trip._
+**Return:** _the trip object along with an array of user objects for those going on that trip._
 
 ```json
 {
@@ -228,7 +231,17 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   "start_date": "2019-07-20T05:00:00.000Z",
   "end_date": "2019-07-30T05:00:00.000Z",
   "complete": true,
-  "users": [3, 4, 5]
+  "created_by_user_id": 1,
+  "users": [
+    {
+      "username": "JohnDoe",
+      "email": "johndoe@email.com"
+    },
+    {
+      "username": "JaneDoe",
+      "email": "janedoe@email.com"
+    }
+  ]
 }
 ```
 
@@ -315,26 +328,24 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 ```json
 [
   {
-    "id": 2,
-    "trip_id": 1,
-    "user_id": 2,
+    "trip_id": 2,
     "title": "Paris Business Trip",
     "description": "Going to Paris for business meetings and week-long conferences. Representing our local branch of the company.",
     "location": "Paris, France",
     "start_date": "2019-07-15T05:00:00.000Z",
     "end_date": "2019-07-20T05:00:00.000Z",
-    "complete": true
+    "complete": true,
+    "created_by_user_id": 1
   },
   {
-    "id": 16,
-    "trip_id": 6,
-    "user_id": 2,
+    "trip_id": 16,
     "title": "Konnichiwa!",
     "description": "Heading to Japan! Couple's trip.",
     "location": "Tokyo, Kyoto, Osaka",
     "start_date": "2019-09-30T05:00:00.000Z",
     "end_date": "2019-10-12T05:00:00.000Z",
-    "complete": false
+    "complete": false,
+    "created_by_user_id": 1
   }
 ]
 ```
@@ -420,21 +431,15 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
 
 **Payload:** _an object with the following:_
 
-- a property `trip` that contains the trip object of which will be inserted into the database
-- a `users` array, containing the user `id`s that are attending this trip
-
-**title & users are REQUIRED**
 
 ```json
 {
-  "trip": {
-    "title": "Test!",
-    "description": "Going on a trip to a place!",
-    "location": "Test City",
-    "start_date": "2019-09-02",
-    "end_date": "2019-09-05"
-  },
-  "users": [3, 5, 7]
+  "title": "Test!",
+  "description": "Going on a trip to a place!",
+  "location": "Test City",
+  "start_date": "2019-09-02",
+  "end_date": "2019-09-05",
+  "created_by_user_id": 1
 }
 ```
 
@@ -448,7 +453,8 @@ Instead of scrambling at the end of a trip or a dinner to figure out who pays fo
   "location": "Test City",
   "start_date": "2019-09-02T05:00:00.000Z",
   "end_date": "2019-09-05T05:00:00.000Z",
-  "complete": false
+  "complete": false,
+  "created_by_user_id": 1
 }
 ```
 
